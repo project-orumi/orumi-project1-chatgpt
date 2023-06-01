@@ -126,16 +126,19 @@ greeting(1)</textarea>
                     console.log(data)
                     console.log(data.choices[0].message.content)
                     let content = data.choices[0].message.content
-                    const pattern = /(<pre>[\s\S]*?<\/pre>)|([^<]+)/g;
-                    result = content
-                        .replace(/(\`{3})([\s\S]*?)(\`{3})/g, "<pre><code>$2</code></pre>")
-                        .replace(pattern, (match, preTag, other) => {
-                            if (preTag) {
-                                return preTag; // <pre> 태그와 그 안의 내용은 그대로 반환
-                            } else {
-                                return other.replace(/(?:\r\n|\r|\n)/g, '<br>'); // 줄바꿈 처리
-                            }
-                        });
+                    let result = content
+                    let codeBlocks = result.match(/```([\s\S]*?)```/gm);
+                    if (codeBlocks) {
+                        for (let i = 0; i < codeBlocks.length; i++) {
+                            let code = codeBlocks[i];
+                            let replacement = code.replace(/^```([\s\S]*?)```/m, "<pre><code>$1</code></pre>");
+                            result = result.replace(code, replacement);
+                        }
+                    }
+                    result = result
+                    .replace(/(?<!<pre><code>[\s\S]*)\n/gm, '<br>')
+                    .replace(/(<\/code><\/pre>)(?:\r\n|\r|\n)?/g, '</code></pre><br>')
+                    console.log(result)
                     $review.innerHTML = result
                     hljs.highlightAll()
                 })

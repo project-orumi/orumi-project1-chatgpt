@@ -10,44 +10,56 @@
         .banner {
             background: url('./assets/icons/banner.svg') no-repeat center;
             display: inline-block;
-            width:2.0rem;
-            height:2.0rem;
+            width: 2.0rem;
+            height: 2.0rem;
             background-size: 1.5rem 1.5rem;
             vertical-align: middle;
         }
-        .invertocat-logo {
+
+        .invertocat-logo-white-banner {
             background: url('./assets/icons/github-mark/github-mark-white.svg') no-repeat center;
             display: inline-block;
-            width:1.1rem;
-            height:1.1rem;
+            width: 1.1rem;
+            height: 1.1rem;
             background-size: 1.0rem 1.0rem;
             vertical-align: middle;
         }
-        .invertocat-logo:hover {
-            width:1.1rem;
-            height:1.1rem;
-            background-size: 1.1rem 1.1rem;
+
+            .invertocat-logo-white-banner:hover {
+                width: 1.1rem;
+                height: 1.1rem;
+                background-size: 1.1rem 1.1rem;
+            }
+
+        .invertocat-logo {
+            background: url('./assets/icons/github-mark/github-mark.svg') no-repeat center;
+            display: inline-block;
+            width: 1.1rem;
+            height: 1.1rem;
+            background-size: 1.0rem 1.0rem;
+            vertical-align: middle;
         }
     </style>
 </head>
-<body class="">
+<body>
     <div class="w-full h-10 flex items-center px-4 bg-slate-800 bg-blend-multiply text-white">
         <a href="./index.html" class="font-bold">
-            <span class="banner"></span><span class="align-middle tracking-wider">Orumi Project#1 ChatGPT API Practice</span></a>
+            <span class="banner"></span><span class="align-middle tracking-wider">Orumi Project#1 ChatGPT API Practice</span>
+        </a>
         <div class="ml-auto hidden lg:flex">
             <ul class="flex space-x-8 font-bold items-center">
-                <li class="cursor-pointer hover:text-sky-300 text-sm">Ai Code Review</li>
-                <li class="cursor-pointer hover:text-sky-300 text-sm">Ai Travel Plan</li>
+                <li class="cursor-pointer hover:text-sky-300 text-sm" id="menuCodeReview">Ai Code Review</li>
+                <li class="cursor-pointer hover:text-sky-300 text-sm" id="menuTravelPlan">Ai Travel Plan</li>
             </ul>
         </div>
         <div class="w-0 h-2/4 border-slate-500 border-l mx-4"></div>
         <div class="flex">
             <ul class="flex space-x-8 font-bold items-center">
-                <li class="cursor-pointer hover:text-sky-300 invertocat-logo"></li>
+                <li class="cursor-pointer hover:text-sky-300 invertocat-logo-white-banner" id="github"></li>
             </ul>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="containerCodeReview">
         <div class="md:flex px-4 py-2">
             <div class="flex-none w-full md:w-1/4 pr-4">
                 <p class="text-sm">Paste your source code. Ai will review your code. You may have to wait a few moments.</p>
@@ -64,6 +76,21 @@ greeting(1)</textarea>
         </div>
         <div class="px-4 pt-2" id="review"></div>
     </div>
+    <div class="container hidden" id="containerGithub">
+        <div class="px-4 pt-2">
+            <p class="flex items-center"><span class="invertocat-logo"></span><span class="pl-1">Project Github</span></p>
+            <div class="rounded bg-slate-800 text-white p-4 mt-2 text-sm">
+                Clone : <a class="hover:underline" target="_blank" href="https://github.com/project-orumi/orumi-project1-chatgpt.git">https://github.com/project-orumi/orumi-project1-chatgpt.git</a>
+            </div>
+        </div>
+        <div class="px-4 pt-2">
+            <p class="flex items-center"><span class="invertocat-logo"></span><span class="pl-1">Other Projects Github</span></p>
+            <div class="rounded bg-slate-800 text-white p-4 mt-2 text-sm">
+                <p>Html Resume with Tailwindcss</p>
+                <p><a class="hover:underline" target="_blank" href="https://project-orumi.github.io/orumi-tailwindcss-resume-practice/">https://project-orumi.github.io/orumi-tailwindcss-resume-practice/</a></p>
+            </div>
+        </div>
+    </div>
     <script>
         let $txtareaCode = document.getElementById('txtareaCode')
         let $buttonSend = document.getElementById('buttonSend')
@@ -71,8 +98,8 @@ greeting(1)</textarea>
         let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
 
         let data = [
-            {"role": "system", "content": "assistant는 코드 리뷰 전문가이다."},
-            {"role": "user", "content": "코드 리뷰를 해주세요. 소스 코드는 3중 백틱 안에 넣어주세요."}
+            { "role": "system", "content": "assistant는 코드 리뷰 전문가이다." },
+            { "role": "user", "content": "코드 리뷰를 해주세요. 소스 코드는 3중 백틱 안에 넣어주세요." }
         ];
 
         $buttonSend.addEventListener('click', e => {
@@ -92,12 +119,29 @@ greeting(1)</textarea>
                 body: JSON.stringify(data),
                 redirect: "follow",
             })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                console.log(data.choices[0].message.content)
-                review.innerText = data.choices[0].message.content
-            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    console.log(data.choices[0].message.content)
+                    review.innerText = data.choices[0].message.content
+                })
+        })
+
+        document.getElementById("menuCodeReview").addEventListener("click", event => {
+            event.preventDefault()
+            document.getElementById("containerCodeReview").classList.remove("hidden")
+            document.getElementById("containerGithub").classList.add("hidden")
+        })
+
+        document.getElementById("menuTravelPlan").addEventListener("click", event => {
+            event.preventDefault()
+            alert("Working...")
+        })
+
+        document.getElementById("github").addEventListener("click", event => {
+            event.preventDefault()
+            document.getElementById("containerCodeReview").classList.add("hidden")
+            document.getElementById("containerGithub").classList.remove("hidden")
         })
     </script>
 </body>

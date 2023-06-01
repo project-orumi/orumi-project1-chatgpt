@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <title>ChatGPT api 연습</title>
     <style>
         .banner {
@@ -123,7 +125,16 @@ greeting(1)</textarea>
                 .then(data => {
                     console.log(data)
                     console.log(data.choices[0].message.content)
-                    review.innerText = data.choices[0].message.content
+                    let content = data.choices[0].message.content
+                    let result = content.replace(/(\`{3})([\s\S]*?)(\`{3})|(\r\n|\r|\n)(?!(<\/pre>))/g, function (match, p1, p2, p3, p4) {
+                        if (p1 && p2 && p3) {
+                            return `<pre><code>${p2}</code></pre>`;
+                        } else {
+                            return `<br>`;
+                        }
+                    });
+                    $review.innerHTML = result
+                    hljs.highlightAll()
                 })
         })
 

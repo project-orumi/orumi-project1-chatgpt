@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>ChatGPT api 연습</title>
+    <style>
+        .banner {
+            background: url('./assets/icons/banner.svg') no-repeat center;
+            display: inline-block;
+            width:2.0rem;
+            height:2.0rem;
+            background-size: 1.5rem 1.5rem;
+            vertical-align: middle;
+        }
+        .invertocat-logo {
+            background: url('./assets/icons/github-mark/github-mark-white.svg') no-repeat center;
+            display: inline-block;
+            width:1.1rem;
+            height:1.1rem;
+            background-size: 1.0rem 1.0rem;
+            vertical-align: middle;
+        }
+        .invertocat-logo:hover {
+            width:1.1rem;
+            height:1.1rem;
+            background-size: 1.1rem 1.1rem;
+        }
+    </style>
+</head>
+<body class="">
+    <div class="w-full h-10 flex items-center px-4 bg-slate-800 bg-blend-multiply text-white">
+        <a href="./index.html" class="font-bold">
+            <span class="banner"></span><span class="align-middle tracking-wider">Orumi Project#1 ChatGPT API Practice</span></a>
+        <div class="ml-auto hidden lg:flex">
+            <ul class="flex space-x-8 font-bold items-center">
+                <li class="cursor-pointer hover:text-sky-300 text-sm">Ai Code Review</li>
+                <li class="cursor-pointer hover:text-sky-300 text-sm">Ai Travel Plan</li>
+            </ul>
+        </div>
+        <div class="w-0 h-2/4 border-slate-500 border-l mx-4"></div>
+        <div class="flex">
+            <ul class="flex space-x-8 font-bold items-center">
+                <li class="cursor-pointer hover:text-sky-300 invertocat-logo"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="md:flex px-4 py-2">
+            <div class="flex-none w-full md:w-1/4 pr-4">
+                <p class="text-sm">Paste your source code. Ai will review your code. You may have to wait a few moments.</p>
+            </div>
+            <div class="flex-1 rounded border-slate-500 border-2 h-18 p-2">
+                <div class="flex w-full h-full items-center">
+                    <textarea class="resize-none w-full h-full focus:outline-none focus:border-0" id="txtareaCode">def greeting(name: str) -> str:
+    return 'Hello' + name
+
+greeting(1)</textarea>
+                    <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-sm" id="buttonSend">Ai</button>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 pt-2" id="review"></div>
+    </div>
+    <script>
+        let $txtareaCode = document.getElementById('txtareaCode')
+        let $buttonSend = document.getElementById('buttonSend')
+        let $review = document.getElementById('review')
+        let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
+
+        let data = [
+            {"role": "system", "content": "assistant는 코드 리뷰 전문가이다."},
+            {"role": "user", "content": "코드 리뷰를 해주세요. 소스 코드는 3중 백틱 안에 넣어주세요."}
+        ];
+
+        $buttonSend.addEventListener('click', e => {
+            e.preventDefault()
+            code = $txtareaCode.value
+
+            data.push({
+                "role": "user",
+                "content": code
+            })
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+                redirect: "follow",
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                console.log(data.choices[0].message.content)
+                review.innerText = data.choices[0].message.content
+            })
+        })
+    </script>
+</body>
+</html>

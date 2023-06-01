@@ -126,23 +126,16 @@ greeting(1)</textarea>
                     console.log(data)
                     console.log(data.choices[0].message.content)
                     let content = data.choices[0].message.content
-                    // let result = content.replace(/(\`{3})([\s\S]*?)(\`{3})|(\r\n|\r|\n)(?!(<\/pre>))/g, function (match, p1, p2, p3, p4) {
-                    //     if (p1 && p2 && p3) {
-                    //         return `<pre><code>${p2}</code></pre>`;
-                    //     } else {
-                    //         return `<br>`;
-                    //     }
-                    // });
                     const pattern = /(<pre>[\s\S]*?<\/pre>)|([^<]+)/g;
                     result = content
-                    .replace(/(\`{3})([\s\S]*?)(\`{3})/g, "<pre><code>$2</code></pre>")
-                    .replace(pattern, (match, preTag, other) => {
-                        if (preTag) {
-                            return preTag; // <pre> 태그와 그 안의 내용은 그대로 반환
-                        } else {
-                            return other.replace(/\n(?![\s\S]*?```)/g, "<br>"); // 줄바꿈 처리
-                        }
-                    });
+                        .replace(/(\`{3})([\s\S]*?)(\`{3})/g, "<pre><code>$2</code></pre>")
+                        .replace(pattern, (match, preTag, other) => {
+                            if (preTag) {
+                                return preTag; // <pre> 태그와 그 안의 내용은 그대로 반환
+                            } else {
+                                return other.replace(/(?:\r\n|\r|\n)/g, '<br>'); // 줄바꿈 처리
+                            }
+                        });
                     $review.innerHTML = result
                     hljs.highlightAll()
                 })
@@ -164,32 +157,6 @@ greeting(1)</textarea>
             document.getElementById("containerCodeReview").classList.add("hidden")
             document.getElementById("containerGithub").classList.remove("hidden")
         })
-
-        function test() {
-            let content = `해당 코드는 name 인자를 str 타입으로 받아서 "Hello"와 함께 출력하는 함수입니다.
-
-그러나 코드 마지막 줄에서 greeting 함수를 호출할 때, name 인자를 int 타입으로 전달했기 때문에 TypeError가 발생할 것입니다. 따라서, 아래와 같이 코드를 수정해주어야 합니다.
-
-\`\`\`
-def greeting(name: str) -> str:
-    return 'Hello ' + name
-
-greeting('Alice')  # 'Hello Alice'
-\`\`\`
-`
-            const pattern = /(<pre>[\s\S]*?<\/pre>)|([^<]+)/g;
-            result = content
-            .replace(/(\`{3})([\s\S]*?)(\`{3})/g, "<pre><code>$2</code></pre>")
-            .replace(pattern, (match, preTag, other) => {
-                if (preTag) {
-                    return preTag; // <pre> 태그와 그 안의 내용은 그대로 반환
-                } else {
-                    return other.replace(/\n(?![\s\S]*?```)/g, "<br>"); // 줄바꿈 처리
-                }
-            });
-            console.log(result)
-            return result
-        }
     </script>
 </body>
 </html>

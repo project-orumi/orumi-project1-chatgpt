@@ -94,26 +94,22 @@ greeting(1)</textarea>
         </div>
     </div>
     <script>
+        let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
         let $txtareaCode = document.getElementById('txtareaCode')
         let $buttonSend = document.getElementById('buttonSend')
         let $review = document.getElementById('review')
-        $review.value = ``
-        let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
-
-        let data = [
-            { "role": "system", "content": "assistant는 코드 리뷰 전문가이다." },
-            { "role": "user", "content": "코드 리뷰를 해주세요. 소스 코드는 3중 백틱 안에 넣어주세요." }
-        ];
 
         $buttonSend.addEventListener('click', e => {
             e.preventDefault()
-            code = $txtareaCode.value
-
+            let code = $txtareaCode.value
+            let data = [
+                { "role": "system", "content": "assistant는 코드 리뷰 전문가이다." },
+                { "role": "user", "content": "코드 리뷰를 해주세요. 소스 코드는 3중 백틱 안에 넣어주세요." }
+            ];
             data.push({
                 "role": "user",
                 "content": code
             })
-
             fetch(url, {
                 method: "POST",
                 headers: {
@@ -128,10 +124,14 @@ greeting(1)</textarea>
                     console.log(data.choices[0].message.content)
                     let str = data.choices[0].message.content
                     str = str.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
-                    str = str.replace(/\n/g, '<br>')
-                    str = str.replace(/<pre><code>([\s\S]*?)<\/code><\/pre>/g, (match, code) => {
-                        return "<pre><code>" + code.replace(/<br>/g, "\n") + "</code></pre>";
+                    str = str.replace(/(<pre><code>[\s\S]*?<\/code><\/pre>)|(\n)/g, (match, codeBlock, lineFeed) => {
+                        if (codeBlock) {
+                            return codeBlock; // <pre><code>...</code></pre> 부분은 그대로 반환
+                        } else {
+                            return '<br>'; // (\n)는 <br>로 치환
+                        }
                     });
+                    console.log(str)
                     $review.innerHTML = str
                     hljs.highlightAll()
                 })

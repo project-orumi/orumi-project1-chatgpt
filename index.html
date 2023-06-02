@@ -97,6 +97,7 @@ greeting(1)</textarea>
         let $txtareaCode = document.getElementById('txtareaCode')
         let $buttonSend = document.getElementById('buttonSend')
         let $review = document.getElementById('review')
+        $review.value = ``
         let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
 
         let data = [
@@ -125,21 +126,13 @@ greeting(1)</textarea>
                 .then(data => {
                     console.log(data)
                     console.log(data.choices[0].message.content)
-                    let content = data.choices[0].message.content
-                    let result = content
-                    let codeBlocks = result.match(/```([\s\S]*?)```/gm);
-                    if (codeBlocks) {
-                        for (let i = 0; i < codeBlocks.length; i++) {
-                            let code = codeBlocks[i];
-                            let replacement = code.replace(/^```([\s\S]*?)```/m, "<pre><code>$1</code></pre>");
-                            result = result.replace(code, replacement);
-                        }
-                    }
-                    result = result
-                    .replace(/(?<!<pre><code>[\s\S]*)\n/gm, '<br>')
-                    .replace(/(<\/code><\/pre>)(?:\r\n|\r|\n)?/g, '</code></pre><br>')
-                    console.log(result)
-                    $review.innerHTML = result
+                    let str = data.choices[0].message.content
+                    str = str.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
+                    str = str.replace(/\n/g, '<br>')
+                    str = str.replace(/<pre><code>([\s\S]*?)<\/code><\/pre>/g, (match, code) => {
+                        return "<pre><code>" + code.replace(/<br>/g, "\n") + "</code></pre>";
+                    });
+                    $review.innerHTML = str
                     hljs.highlightAll()
                 })
         })

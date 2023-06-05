@@ -41,6 +41,15 @@
             background-size: 1.0rem 1.0rem;
             vertical-align: middle;
         }
+
+        .banner-menu {
+            background: url('./assets/icons/menu.svg') no-repeat center;
+            display: inline-block;
+            width: 0.9rem;
+            height: 0.9rem;
+            background-size: 0.9rem 0.9rem;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -48,23 +57,59 @@
         <a href="./index.html" class="font-bold">
             <span class="banner"></span><span class="align-middle tracking-wider">Orumi Project#1 ChatGPT API Practice</span>
         </a>
-        <div class="ml-auto hidden lg:flex">
-            <ul class="flex space-x-8 font-bold items-center">
-                <li class="cursor-pointer hover:text-sky-300 text-sm" id="menuCodeReview">Ai Code Review</li>
-                <li class="cursor-pointer hover:text-sky-300 text-sm" id="menuTravelPlan">Ai Travel Plan</li>
+        <div class="ml-auto hidden lg:flex h-full items-center">
+            <ul class="flex space-x-8 font-bold cursor-pointer">
+                <li class="hover:text-sky-300 text-sm" name="menuCodeReview">Ai Code Review</li>
+            </ul>
+            <div class="w-0 h-2/4 border-slate-500 border-l mx-4"></div>
+            <ul class="flex space-x-8 font-bold cursor-pointer items-center">
+                <li class="hover:text-sky-300 text-sm" name="btn_language" value="English">English</li>
+                <li class="hover:text-sky-300 invertocat-logo-white-banner" name="menuGithub"></li>
             </ul>
         </div>
-        <div class="w-0 h-2/4 border-slate-500 border-l mx-4"></div>
-        <div class="flex">
-            <ul class="flex space-x-8 font-bold items-center">
-                <li class="cursor-pointer hover:text-sky-300 invertocat-logo-white-banner" id="github"></li>
+        <div class="ml-auto flex lg:hidden h-full">
+            <ul class="flex space-x-8 font-bold cursor-pointer items-center">
+                <li class="hover:text-sky-300 text-sm" name="btn_language" value="English">English</li>
+                <li class="banner-menu" id="btn_banner_menu"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="hidden absolute w-full h-full" id="banner_menu">
+        <div class="absolute bg-black/75 w-full h-full" name="menu_bg"></div>
+        <div class="absolute mt-1 right-1 bg-slate-800 opacity-100 rounded text-white py-4 px-8">
+            <ul class="space-y-1 font-bold cursor-pointer">
+                <li class="hover:text-sky-300" name="menuCodeReview">Ai Code Review</li>
+            </ul>
+            <div class="w-full h-auto border-slate-500 border-t-[1px] my-4"></div>
+            <ul class="font-bold cursor-pointer">
+                <li class="hover:text-sky-300 invertocat-logo-white-banner flex items-center" name="menuGithub"><span class="pl-6">Github</span></li>
+            </ul>
+            <div class="w-full h-auto border-slate-500 border-t-[1px] my-4"></div>
+            <ul class="font-bold cursor-pointer flex">
+                <li class="hover:text-sky-300 ml-auto text-sm" name="menu_close">close</li>
+            </ul>
+        </div>
+    </div>
+    <div class="hidden absolute w-full h-full" id="banner_language">
+        <div class="absolute bg-black/75 w-full h-full" name="menu_bg"></div>
+        <div class="absolute mt-1 right-1 bg-slate-800 opacity-100 rounded text-white py-4 px-8">
+            <ul class="space-y-4 font-bold cursor-pointer">
+                <li class="hover:text-sky-300" name="language" value="English">English</li>
+                <li class="hover:text-sky-300" name="language" value="Spanish">Español</li>
+                <li class="hover:text-sky-300" name="language" value="French">Français</li>
+                <li class="hover:text-sky-300" name="language" value="Korean">한국어</li>
+                <li class="hover:text-sky-300" name="language" value="Japannese">日本語</li>
+            </ul>
+            <div class="w-full h-auto border-slate-500 border-t-[1px] my-4"></div>
+            <ul class="font-bold cursor-pointer flex">
+                <li class="hover:text-sky-300 ml-auto text-sm" name="menu_close">close</li>
             </ul>
         </div>
     </div>
     <div class="container" id="containerCodeReview">
         <div class="md:flex px-4 py-2">
             <div class="flex-none w-full md:w-1/4 pr-4">
-                <p class="text-sm">Paste your source code. Ai will review your code. You may have to wait a few moments.</p>
+                <p class="text-sm" id="info"></p>
             </div>
             <div class="flex-1 rounded border-slate-500 border-2 h-18 p-2">
                 <div class="flex w-full h-full items-center">
@@ -98,18 +143,32 @@ greeting(1)</textarea>
         let $txtareaCode = document.getElementById('txtareaCode')
         let $buttonSend = document.getElementById('buttonSend')
         let $review = document.getElementById('review')
+        let $info = document.getElementById('info')
+        let info = {
+            "English": "Submit your source code and wait while the AI writes a code review.",
+            "Spanish": "Envíe su código fuente y espere mientras la IA escribe una revisión del código.",
+            "French": "Soumettez votre code source et attendez que l'IA rédige une révision de code.",
+            "Korean": "당신의 소스 코드를 전송하시고 AI가 코드 리뷰를 작성하는 동안 기다려주세요.",
+            "Japannese": "ソースコードを送信し、AI がコードレビューを作成するまで待ちます。"
+        }
+        $info.innerText = info[document.getElementsByName("btn_language")[0].getAttribute("value")]
 
         $buttonSend.addEventListener('click', e => {
             e.preventDefault()
             let code = $txtareaCode.value
             let data = [
-                { "role": "system", "content": "assistant는 코드 리뷰 전문가이다." },
-                { "role": "user", "content": "코드 리뷰를 해주세요. 소스 코드는 3중 백틱 안에 넣어주세요." }
+                { "role": "system", "content": "The assistant is a code review expert." },
+                { "role": "user", "content": "Please do a code review. Put the source code inside triple backticks." }
             ];
+            data.push({
+                "role": "user",
+                "content": "Please do code reviews in " + document.getElementsByName("btn_language")[0].getAttribute("value") + "."
+            })
             data.push({
                 "role": "user",
                 "content": code
             })
+            console.log(data)
             fetch(url, {
                 method: "POST",
                 headers: {
@@ -123,36 +182,78 @@ greeting(1)</textarea>
                     console.log(data)
                     console.log(data.choices[0].message.content)
                     let str = data.choices[0].message.content
-                    str = str.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
-                    str = str.replace(/(<pre><code>[\s\S]*?<\/code><\/pre>)|(\n)/g, (match, codeBlock, lineFeed) => {
-                        if (codeBlock) {
-                            return codeBlock; // <pre><code>...</code></pre> 부분은 그대로 반환
+                    str = str.replace(/(```[\s\S]*?```)|(\n)/g, (match, code, lineFeed) => {
+                        if (code) {
+                            return code.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
                         } else {
-                            return '<br>'; // (\n)는 <br>로 치환
+                            return '<br>'
                         }
-                    });
+                    })
                     console.log(str)
                     $review.innerHTML = str
                     hljs.highlightAll()
                 })
         })
 
-        document.getElementById("menuCodeReview").addEventListener("click", event => {
-            event.preventDefault()
-            document.getElementById("containerCodeReview").classList.remove("hidden")
-            document.getElementById("containerGithub").classList.add("hidden")
+        document.getElementsByName("menuCodeReview").forEach(element => {
+            element.addEventListener("click", event => {
+                event.preventDefault()
+                reset_ui()
+                document.getElementById("containerCodeReview").classList.remove("hidden")
+                document.getElementById("containerGithub").classList.add("hidden")
+            })
         })
 
-        document.getElementById("menuTravelPlan").addEventListener("click", event => {
-            event.preventDefault()
-            alert("Working...")
+        document.getElementsByName("menuGithub").forEach(element => {
+            element.addEventListener("click", event => {
+                event.preventDefault()
+                reset_ui()
+                document.getElementById("containerCodeReview").classList.add("hidden")
+                document.getElementById("containerGithub").classList.remove("hidden")
+            })
         })
 
-        document.getElementById("github").addEventListener("click", event => {
+        document.getElementById("btn_banner_menu").addEventListener("click", event => {
             event.preventDefault()
-            document.getElementById("containerCodeReview").classList.add("hidden")
-            document.getElementById("containerGithub").classList.remove("hidden")
+            document.getElementById("banner_menu").classList.remove("hidden")
+            document.getElementById("banner_language").classList.add("hidden")
         })
+
+        document.getElementsByName("btn_language").forEach(element => {
+            element.addEventListener("click", event => {
+                event.preventDefault()
+                document.getElementById("banner_language").classList.remove("hidden")
+                document.getElementById("banner_menu").classList.add("hidden")
+            })
+        })
+
+        document.getElementsByName("language").forEach(element => {
+            element.addEventListener("click", event => {
+                event.preventDefault()
+                reset_ui()
+                document.getElementsByName("btn_language").forEach(e => { e.setAttribute("value", element.getAttribute("value")); e.innerText = element.innerText; })
+                $info.innerText = info[element.getAttribute("value")]
+            })
+        })
+
+        document.getElementsByName("menu_bg").forEach(element => {
+            element.addEventListener("click", event => {
+                event.preventDefault()
+                element.parentNode.classList.add("hidden")
+            })
+        })
+
+        document.getElementsByName("menu_close").forEach(element => {
+            element.addEventListener("click", event => {
+                event.preventDefault()
+                element.parentNode.parentNode.parentNode.classList.add("hidden")
+            })
+        })
+
+        function reset_ui() {
+            document.getElementById("banner_menu").classList.add("hidden")
+            document.getElementById("banner_language").classList.add("hidden")
+        }
     </script>
 </body>
 </html>

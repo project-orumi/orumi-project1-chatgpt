@@ -1,0 +1,52 @@
+.banner {
+    /* background: url('~/assets/icons/banner.svg') no-repeat center; */
+    background: url('/orumi-project1-chatgpt/assets/icons/banner.svg') no-repeat center;
+    width: 2.0rem;
+    height: 2.0rem;
+    background-size: 1.5rem 1.5rem;
+    vertical-align: middle;
+}
+
+.li-icon [class^="icon-"] {
+    width: 1.4rem;
+    height: 1.4rem;
+    background-size: 1.2rem 1.2rem;
+    vertical-align: middle;
+}
+
+.li-icon:hover [class^="icon-"] {
+    background-size: 1.4rem 1.4rem;
+    fill: #7dd3fc;
+}
+
+.icon-invertocat-logo-white-banner {
+    background: url('/orumi-project1-chatgpt/assets/icons/github-mark/github-mark-white.svg') no-repeat center;
+}
+
+.icon-earth {
+    background: url('/orumi-project1-chatgpt/assets/icons/earth.svg') no-repeat center;
+}
+
+.invertocat-logo {
+    background: url('/orumi-project1-chatgpt/assets/icons/github-mark/github-mark.svg') no-repeat center;
+    width: 1.1rem;
+    height: 1.1rem;
+    background-size: 1.0rem 1.0rem;
+    vertical-align: middle;
+}
+
+.banner-menu {
+    background: url('/orumi-project1-chatgpt/assets/icons/menu.svg') no-repeat center;
+    width: 0.9rem;
+    height: 0.9rem;
+    background-size: 0.9rem 0.9rem;
+    vertical-align: middle;
+}
+
+.loading {
+    background: url('/orumi-project1-chatgpt/assets/icons/loading.svg') no-repeat center;
+    width: 5.0rem;
+    height: 5rem;
+    background-size: 5rem 5rem;
+    vertical-align: middle;
+}

@@ -1,9 +1,6 @@
 let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`
-let $txtareaCode = document.getElementById('txtareaCode')
-let $buttonSend = document.getElementById('buttonSend')
-let $review = document.getElementById('review')
 let $info = document.getElementById('info')
-let info = {
+const info = {
     "English": "Please send the source code and wait while the AI writes the code review. It takes about 20 to 30 seconds.",
     "Spanish": "Envíe el código fuente y espere mientras la IA escribe la revisión del código. Se tarda unos 20 a 30 segundos.",
     "French": "Veuillez envoyer le code source et patienter pendant que l'IA écrit la révision du code. Cela prend environ 20 à 30 secondes.",
@@ -22,10 +19,10 @@ let $Loading = (function() {
     return this
 })()
 
-$buttonSend.addEventListener('click', e => {
+document.getElementById('buttonSend').addEventListener('click', e => {
     e.preventDefault()
     $Loading.show()
-    let code = $txtareaCode.value
+    let code = document.getElementById('txtareaCode').value
     let data = [
         { "role": "system", "content": "The assistant is a code review expert." },
         { "role": "user", "content": "Please do a code review. Put the source code inside triple backticks." }
@@ -58,7 +55,7 @@ $buttonSend.addEventListener('click', e => {
                 }
             })
             console.log(str)
-            $review.innerHTML = str
+            document.getElementById('review').innerHTML = str
             hljs.highlightAll()
             $Loading.hide()
         })

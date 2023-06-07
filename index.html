@@ -184,7 +184,6 @@ app.Run();</textarea>
         <div class="loading absolute top-1/2 left-1/2"></div>
     </div>
     <script>
-        let $loadingscreen = document.getElementById("loadingscreen")
         let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`
         let $txtareaCode = document.getElementById('txtareaCode')
         let $buttonSend = document.getElementById('buttonSend')
@@ -198,10 +197,20 @@ app.Run();</textarea>
             "Japannese": "ソースコードを送信し、AI がコードレビューを作成するまでお待ちください。 20～30秒ほどかかります。"
         }
         $info.innerText = info[document.getElementsByName("btn_language")[0].getAttribute("value")]
+        let $Loading = (function() {
+            let $loadingscreen = document.getElementById("loadingscreen")
+            this.show = function() {
+                $loadingscreen.classList.remove("hidden")
+            }
+            this.hide = function() {
+                $loadingscreen.classList.add("hidden")
+            }
+            return this
+        })()
 
         $buttonSend.addEventListener('click', e => {
             e.preventDefault()
-            $loadingscreen.classList.remove("hidden")
+            $Loading.show()
             let code = $txtareaCode.value
             let data = [
                 { "role": "system", "content": "The assistant is a code review expert." },
@@ -215,7 +224,6 @@ app.Run();</textarea>
                 "role": "user",
                 "content": code
             })
-            console.log(data)
             fetch(url, {
                 method: "POST",
                 headers: {
@@ -227,7 +235,6 @@ app.Run();</textarea>
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    console.log(data.choices[0].message.content)
                     let str = data.choices[0].message.content
                     str = str.replace(/(```[\s\S]*?```)|(\n)/g, (match, code, lineFeed) => {
                         if (code) {
@@ -239,51 +246,57 @@ app.Run();</textarea>
                     console.log(str)
                     $review.innerHTML = str
                     hljs.highlightAll()
-                    $loadingscreen.classList.add("hidden")
+                    $Loading.hide()
                 })
         })
 
+        // banner code review button click event
         document.getElementsByName("menuCodeReview").forEach(element => {
             element.addEventListener("click", event => {
                 event.preventDefault()
-                reset_ui()
+                reset_banner()
                 document.getElementById("containerCodeReview").classList.remove("hidden")
                 document.getElementById("containerGithub").classList.add("hidden")
             })
         })
 
+        // Github button click event
         document.getElementsByName("menuGithub").forEach(element => {
             element.addEventListener("click", event => {
                 event.preventDefault()
-                reset_ui()
+                reset_banner()
                 document.getElementById("containerCodeReview").classList.add("hidden")
                 document.getElementById("containerGithub").classList.remove("hidden")
             })
         })
 
+        // (not lg screen) menu button click event
         document.getElementById("btn_banner_menu").addEventListener("click", event => {
             event.preventDefault()
+            reset_banner()
             document.getElementById("banner_menu").classList.remove("hidden")
-            document.getElementById("banner_language").classList.add("hidden")
         })
 
+        // banner language button click event
         document.getElementsByName("btn_language").forEach(element => {
             element.addEventListener("click", event => {
                 event.preventDefault()
+                reset_banner()
                 document.getElementById("banner_language").classList.remove("hidden")
-                document.getElementById("banner_menu").classList.add("hidden")
             })
         })
 
+        // language click event : set a language
         document.getElementsByName("language").forEach(element => {
             element.addEventListener("click", event => {
                 event.preventDefault()
-                reset_ui()
+                reset_banner()
                 document.getElementsByName("btn_language").forEach(e => { e.setAttribute("value", element.getAttribute("value")); e.children[1].innerText = element.innerText; })
                 $info.innerText = info[element.getAttribute("value")]
             })
         })
 
+        // background of menu click event : hide the menu
         document.getElementsByName("menu_bg").forEach(element => {
             element.addEventListener("click", event => {
                 event.preventDefault()
@@ -291,15 +304,20 @@ app.Run();</textarea>
             })
         })
 
+        // textarea highlighting : focus
         document.getElementById("txtareaCode").addEventListener("focus", event => {
             document.getElementById("wrapper-txtareaCode").classList.add("ring-2")
         })
 
+        // textarea highlighting : blur
         document.getElementById("txtareaCode").addEventListener("blur", event => {
             document.getElementById("wrapper-txtareaCode").classList.remove("ring-2")
         })
 
-        function reset_ui() {
+        /**
+         * (not lg screen) hide a banner menu and language menu
+         */
+        function reset_banner() {
             document.getElementById("banner_menu").classList.add("hidden")
             document.getElementById("banner_language").classList.add("hidden")
         }

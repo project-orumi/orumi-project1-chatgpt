@@ -50,3 +50,11 @@
     background-size: 5rem 5rem;
     vertical-align: middle;
 }
+
+.youtube-logo {
+    background: url('/orumi-project1-chatgpt/assets/icons/logo-youtube.svg') no-repeat center;
+    width: 2.0rem;
+    height: 2.0rem;
+    background-size: 2.0rem 2.0rem;
+    vertical-align: middle;
+}

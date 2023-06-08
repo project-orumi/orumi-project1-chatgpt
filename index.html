@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
+    <!-- nav -->
     <div class="w-full h-16 flex items-center px-4 bg-slate-800 bg-blend-multiply text-white">
         <a href="./index.html" class="font-bold flex items-center">
             <span class="banner"></span><span class="align-middle tracking-wider">Orumi Project#1</span><span class="hidden md:flex pl-2">ChatGPT API Practice</span>
@@ -18,6 +20,7 @@
         <div class="ml-auto hidden lg:flex h-full items-center">
             <ul class="flex space-x-8 font-bold cursor-pointer">
                 <li class="hover:underline" name="menuCodeReview">Ai Code Review</li>
+                <li class="hover:underline" name="menuTitleFromLyrics">Ai Title from Lyrics</li>
             </ul>
             <div class="w-0 h-2/4 border-slate-500 border-l mx-4"></div>
             <ul class="space-x-4 font-bold cursor-pointer flex items-center">
@@ -36,6 +39,7 @@
         <div class="absolute top-16 right-0 bg-slate-800 opacity-100 rounded text-white">
             <ul class="font-bold cursor-pointer">
                 <li class="px-8 py-4 hover:underline hover:bg-slate-700" name="menuCodeReview">Ai Code Review</li>
+                <li class="px-8 py-4 hover:underline hover:bg-slate-700" name="menuTitleFromLyrics">Ai Ai Title from Lyrics</li>
             </ul>
             <ul class="font-bold cursor-pointer">
                 <li class="flex items-center li-icon px-8 py-4 hover:underline hover:bg-slate-700" name="btn_language" value="English"><span class="icon-earth"></span><span class="pl-1">English</span></li>
@@ -55,63 +59,49 @@
             </ul>
         </div>
     </div>
+    <!-- //nav -->
+    <!-- Ai Code Review -->
     <div id="containerCodeReview">
         <div class="md:flex p-8">
             <div class="flex-none w-full md:w-1/4 pr-4">
-                <p class="text-sm" id="info"></p>
+                <p class="text-sm" id="how_cr"></p>
             </div>
             <div class="flex-1 rounded border-slate-500 border-2 h-64 p-2" id="wrapper-txtareaCode">
                 <div class="flex w-full h-full items-center">
-                    <textarea class="resize-none w-full h-full focus:outline-none focus:border-0" id="txtareaCode">using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Options;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieScheme.Name;
-    //options.DefaultAuthenticateScheme = CookieScheme.Name; // 인증 스키마
-    //options.DefaultChallengeScheme = CookieScheme.Name; // 도전 스키마
-}).AddCookie(CookieScheme.Name, options =>
-{
-    options.AccessDeniedPath = "/account/denied";
-    options.LoginPath = "/account/login";
-});
-
-builder.Services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, CookieLogin.ConfigureMyCookie>();
-builder.Services.AddSingleton<MyService>();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();</textarea>
+                    <textarea class="tta resize-none w-full h-full focus:outline-none focus:border-0" id="txtareaCode"></textarea>
                     <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-sm" id="buttonSend">Ai</button>
                 </div>
             </div>
         </div>
         <div class="p-8" id="review"></div>
     </div>
+    <!-- //Ai Code Riview -->
+    <!-- Ai Title from Lyrics -->
+    <div class="" id="containerTitlefromLyrics">
+        <div class="md:flex p-8">
+            <div class="flex-none w-full md:w-1/4 pr-4">
+                <p class="text-sm" id="how_tfl"></p>
+            </div>
+            <div class="flex-1 rounded border-slate-500 border-2 h-64 p-2" id="wrapper-txtareaCode">
+                <div class="flex w-full h-full items-center">
+                    <textarea class="tta resize-none w-full h-full focus:outline-none focus:border-0" id="txtareaLyrics"></textarea>
+                    <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-sm" id="btnTfL">Ai</button>
+                </div>
+            </div>
+        </div>
+        <div class="hidden" id="song">
+            <div class="flex justify-center p-8 space-x-2 py-4">
+                <p class="text-2xl" id="singer_name"></p>
+                <p class="text-2xl" id="song_title"></p>
+            </div>
+            <div class="bg-black text-white p-8">
+                <div class="flex items-center"><div class="youtube-logo"></div><span class="pl-2">Youtube</span></div>
+            </div>
+            <div class="grid place-content-center gap-4 p-8 bg-black text-white" id="youtubes"></div>
+        </div>
+    </div>
+    <!-- //Ai Title from Lyrics -->
+    <!-- Github -->
     <div class="hidden" id="containerGithub">
         <div class="px-4 pt-2">
             <p class="flex items-center"><span class="invertocat-logo"></span><span class="pl-1">Project Github</span></p>
@@ -127,10 +117,13 @@ app.Run();</textarea>
             </div>
         </div>
     </div>
+    <!-- //Github -->
+    <!-- loading screen -->
     <div class="hidden loadingscreen absolute top-0 left-0 w-full h-full" id="loadingscreen">
         <div class="bg-black/75 w-full h-full"></div>
         <div class="loading absolute top-1/2 left-1/2"></div>
     </div>
+    <!-- //loading screen -->
     <script src="./js/index.js"></script>
 </body>
 </html>

@@ -1,17 +1,28 @@
-let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`
-let $how_cr = document.getElementById('how_cr')
-let $how_tfl = document.getElementById('how_tfl')
-let $ttaCode = document.getElementById("txtareaCode")
-let $ttaLyrics = document.getElementById("txtareaLyrics")
 const lang = {
-    howto_codereview: {
+    menu: {
+        menu1: {
+            "English": "Ai Code Review",
+            "Spanish": "Ai Revisión de código",
+            "French": "Ai Révision des codes",
+            "Korean": "Ai 코드 리뷰",
+            "Japannese": "Ai コードレビュー"
+        },
+        menu2: {
+            "English": "Ai Find Song",
+            "Spanish": "Ai Buscar canción",
+            "French": "Ai Trouver la chanson",
+            "Korean": "Ai 노래 찾기",
+            "Japannese": "Ai 曲を探す"
+        }
+    },
+    how_cr: {
         "English": "Please send the source code and wait while the AI writes the code review. It takes about 20 to 30 seconds.",
         "Spanish": "Envíe el código fuente y espere mientras la IA escribe la revisión del código. Se tarda unos 20 a 30 segundos.",
         "French": "Veuillez envoyer le code source et patienter pendant que l'IA écrit la révision du code. Cela prend environ 20 à 30 secondes.",
         "Korean": "소스 코드를 전송하고 AI가 코드리뷰를 작성하는 동안 기다려주세요. 약 20초 ~ 30초 정도가 소요됩니다.",
         "Japannese": "ソースコードを送信し、AI がコードレビューを作成するまでお待ちください。 20～30秒ほどかかります。"
     },
-    howto_titlefromlyrics: {
+    how_fs: {
         "English": "Please send the lyrics and wait while the AI search the song title. It takes about 20 to 30 seconds.",
         "Spanish": "Envíe la letra y espere mientras la IA busca el título de la canción. Se tarda unos 20 a 30 segundos.",
         "French": "Veuillez envoyer les paroles et patienter pendant que l'IA recherche le titre de la chanson. Cela prend environ 20 à 30 secondes.",
@@ -20,50 +31,10 @@ const lang = {
     }
 }
 const sample = {
-    code: `using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Options;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieScheme.Name;
-    //options.DefaultAuthenticateScheme = CookieScheme.Name; // 인증 스키마
-    //options.DefaultChallengeScheme = CookieScheme.Name; // 도전 스키마
-}).AddCookie(CookieScheme.Name, options =>
-{
-    options.AccessDeniedPath = "/account/denied";
-    options.LoginPath = "/account/login";
-});
-
-builder.Services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, CookieLogin.ConfigureMyCookie>();
-builder.Services.AddSingleton<MyService>();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();`,
+    code: `lst = []
+lst.append(1)
+lst.append(lst)
+print(lst)`,
     lyrics: {
         "English": "Fiesta nae maeume taeyangeul kkuk samginchae yeongwontorok",
         "Spanish": `I’m your man I’m your man
@@ -73,13 +44,13 @@ naneun oneuldo geudaeman saenggakhae`,
         "Korean": `이렇게 난 또 (fiction in fiction)
 잊지 못하고 (fiction in fiction)
 내 가슴 속에 끝나지 않을 이야길 쓰고 있어`,
-        "Japannese": ``
+        "Japannese": `Cause I know what you like boy (ah-ah)
+You're my chemical hype boy (ah-ah)
+ナイ ジナンナルデュルエン ヌン ッツメオン イツヌン ッツム
+Hype Boy ネマン オンヘ
+Hype Boy ナガ ゼンヘ`
     }
 }
-$how_cr.innerText = lang.howto_codereview[document.getElementsByName("btn_language")[0].getAttribute("value")]
-$how_tfl.innerText = lang.howto_titlefromlyrics[document.getElementsByName("btn_language")[0].getAttribute("value")]
-$ttaCode.value = sample.code
-$ttaLyrics.value = sample.lyrics[document.getElementsByName("btn_language")[0].getAttribute("value")]
 let $Loading = (function () {
     let $loadingscreen = document.getElementById("loadingscreen")
     this.show = function () {
@@ -90,18 +61,32 @@ let $Loading = (function () {
     }
     return this
 })()
-
-document.getElementById('buttonSend').addEventListener('click', e => {
+let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`
+let $menu_cr = document.getElementsByName("menu_cr")
+let $menu_fs = document.getElementsByName("menu_fs")
+let $how_cr = document.getElementById('how_cr')
+let $how_fs = document.getElementById('how_fs')
+let $tta_code = document.getElementById("tta_code")
+let $tta_lyrics = document.getElementById("tta_lyrics")
+const initial_language = "Korean" // initialize default language
+document.getElementsByName("btn_lang").forEach(e => { e.setAttribute("value", initial_language); e.children[1].innerText = initial_language; })
+$menu_cr.forEach(e => { e.innerText = lang.menu.menu1[document.getElementsByName("btn_lang")[0].getAttribute("value")] })
+$menu_fs.forEach(e => { e.innerText = lang.menu.menu2[document.getElementsByName("btn_lang")[0].getAttribute("value")] })
+$how_cr.innerText = lang.how_cr[document.getElementsByName("btn_lang")[0].getAttribute("value")]
+$how_fs.innerText = lang.how_fs[document.getElementsByName("btn_lang")[0].getAttribute("value")]
+$tta_code.value = sample.code
+$tta_lyrics.value = sample.lyrics[document.getElementsByName("btn_lang")[0].getAttribute("value")]
+document.getElementById('btn_cr').addEventListener('click', e => {
     e.preventDefault()
     $Loading.show()
-    let code = $ttaCode.value
+    let code = $tta_code.value
     let data = [
         { "role": "system", "content": "The assistant is a code review expert." },
         { "role": "user", "content": "Please do a code review. Put the source code inside triple backticks." }
     ];
     data.push({
         "role": "user",
-        "content": "Please do code reviews in " + document.getElementsByName("btn_language")[0].getAttribute("value") + "."
+        "content": "Please do code reviews in " + document.getElementsByName("btn_lang")[0].getAttribute("value") + "."
     })
     data.push({
         "role": "user",
@@ -132,12 +117,13 @@ document.getElementById('buttonSend').addEventListener('click', e => {
             $Loading.hide()
         })
 })
-
-document.getElementById('btnTfL').addEventListener('click', e => {
+document.getElementById('btn_fs').addEventListener('click', e => {
     e.preventDefault()
-    document.getElementById("song").classList.add("hidden")
+    document.getElementById("youtubes").classList.add("hidden")
+    document.getElementById('singer-title').innerText = ""
+    document.getElementById('youtubes').innerHTML = ""
     $Loading.show()
-    let lyrics = $ttaLyrics.value
+    let lyrics = $tta_lyrics.value
     let data = [
         { "role": "system", "content": "Assistant finds song titles by song lyrics." },
         { "role": "user", "content": 'Find the song title from lyrics. Additionally Let me know the song title and singer name or group name as a json object. {"song_title":"title", "singer_name":"name"}' }
@@ -166,19 +152,15 @@ document.getElementById('btnTfL').addEventListener('click', e => {
             console.log("found1", found1)
             console.log("found2", found2)
             if (found1) {
-                document.getElementById('singer-title').innerText = ""
-                document.getElementById('youtubes').innerHTML = ""
                 let found = JSON.parse(found1[0])
                 console.log(found)
                 document.getElementById('singer-title').innerText = found["singer_name"] + " - " + found["song_title"]
 
                 // 1. Load the JavaScript client library.
-                const q = found["singer_name"] + " " + found["song_title"]
+                const q = found["singer_name"] + "+" + found["song_title"]
                 gapi.load('client', () => start(q));
             } else {
                 if (found2) {
-                    document.getElementById('singer-title').innerText = ""
-                    document.getElementById('youtubes').innerHTML = ""
                     let found = found2[1]
                     console.log(found)
                     document.getElementById('singer-title').innerText = found["song_title"]
@@ -196,7 +178,7 @@ document.getElementById('btnTfL').addEventListener('click', e => {
 })
 
 // banner code review button click event
-document.getElementsByName("menuCodeReview").forEach(element => {
+document.getElementsByName("menu_cr").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_banner()
@@ -207,7 +189,7 @@ document.getElementsByName("menuCodeReview").forEach(element => {
 })
 
 // banner Title from Lyrics button click event
-document.getElementsByName("menuTitleFromLyrics").forEach(element => {
+document.getElementsByName("menu_fs").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_banner()
@@ -218,7 +200,7 @@ document.getElementsByName("menuTitleFromLyrics").forEach(element => {
 })
 
 // Github button click event
-document.getElementsByName("menuGithub").forEach(element => {
+document.getElementsByName("btn_git").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_banner()
@@ -236,7 +218,7 @@ document.getElementById("btn_banner_menu").addEventListener("click", event => {
 })
 
 // banner language button click event
-document.getElementsByName("btn_language").forEach(element => {
+document.getElementsByName("btn_lang").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_banner()
@@ -249,10 +231,13 @@ document.getElementsByName("language").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_banner()
-        document.getElementsByName("btn_language").forEach(e => { e.setAttribute("value", element.getAttribute("value")); e.children[1].innerText = element.innerText; })
-        $how_cr.innerText = lang.howto_codereview[element.getAttribute("value")]
-        $how_tfl.innerText = lang.howto_titlefromlyrics[element.getAttribute("value")]
-        $ttaLyrics.value = sample.lyrics[element.getAttribute("value")]
+        const selected = element.getAttribute("value")
+        document.getElementsByName("btn_lang").forEach(e => { e.setAttribute("value", selected); e.children[1].innerText = element.innerText; })
+        $how_cr.innerText = lang.how_cr[selected]
+        $how_fs.innerText = lang.how_fs[selected]
+        $tta_lyrics.value = sample.lyrics[selected]
+        $menu_cr.forEach(e => { e.innerText = lang.menu.menu1[selected] })
+        $menu_fs.forEach(e => { e.innerText = lang.menu.menu2[selected] })
     })
 })
 
@@ -295,12 +280,12 @@ function start(q) {
     }).then(function () {
         // 3. Initialize and make the API request.
         return gapi.client.request({
-            'path': 'https://www.googleapis.com/youtube/v3/search?q=' + q,
+            'path': 'https://www.googleapis.com/youtube/v3/search?q=' + q + "+music+video",
         })
     }).then(function (response) {
         console.log(response.result);
         const data = response.result
-        document.getElementById("song").classList.remove("hidden")
+        document.getElementById("youtubes").classList.remove("hidden")
         data.items.forEach(d => {
             document.getElementById('youtubes').innerHTML += '<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + d.id.videoId + '" frameborder="0"></iframe>'
         })

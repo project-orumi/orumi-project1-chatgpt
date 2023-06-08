@@ -1,3 +1,12 @@
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
 .banner {
     /* background: url('~/assets/icons/banner.svg') no-repeat center; */
     background: url('/orumi-project1-chatgpt/assets/icons/banner.svg') no-repeat center;
@@ -57,4 +66,13 @@
     height: 2.0rem;
     background-size: 2.0rem 2.0rem;
     vertical-align: middle;
+}
+
+.chatgpt-logo {
+    background: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg') no-repeat center;
+    width: 2.0rem;
+    height: 2.0rem;
+    background-size: 2.0rem 2.0rem;
+    vertical-align: middle;
+    filter: brightness(100%) contrast(100%) hue-rotate(0deg) invert(100%) saturate(100%) sepia(0%);
 }

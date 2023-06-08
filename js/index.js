@@ -166,26 +166,22 @@ document.getElementById('btnTfL').addEventListener('click', e => {
             console.log("found1", found1)
             console.log("found2", found2)
             if (found1) {
-                document.getElementById('singer_name').innerText = ""
-                document.getElementById('song_title').innerText = ""
+                document.getElementById('singer-title').innerText = ""
                 document.getElementById('youtubes').innerHTML = ""
                 let found = JSON.parse(found1[0])
                 console.log(found)
-                document.getElementById('singer_name').innerText = found["singer_name"]
-                document.getElementById('song_title').innerText = found["song_title"]
+                document.getElementById('singer-title').innerText = found["singer_name"] + " - " + found["song_title"]
 
                 // 1. Load the JavaScript client library.
                 const q = found["singer_name"] + " " + found["song_title"]
                 gapi.load('client', () => start(q));
             } else {
                 if (found2) {
-                    document.getElementById('singer_name').innerText = ""
-                    document.getElementById('song_title').innerText = ""
+                    document.getElementById('singer-title').innerText = ""
                     document.getElementById('youtubes').innerHTML = ""
                     let found = found2[1]
                     console.log(found)
-                    document.getElementById('singer_name').innerText = ""
-                    document.getElementById('song_title').innerText = found["song_title"]
+                    document.getElementById('singer-title').innerText = found["song_title"]
 
                     // 1. Load the JavaScript client library.
                     const q = "song " + found["song_title"]

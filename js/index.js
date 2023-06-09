@@ -76,6 +76,7 @@ $how_cr.innerText = lang.how_cr[document.getElementsByName("btn_lang")[0].getAtt
 $how_fs.innerText = lang.how_fs[document.getElementsByName("btn_lang")[0].getAttribute("value")]
 $tta_code.value = sample.code
 $tta_lyrics.value = sample.lyrics[document.getElementsByName("btn_lang")[0].getAttribute("value")]
+
 document.getElementById('btn_cr').addEventListener('click', e => {
     e.preventDefault()
     $Loading.show()
@@ -117,6 +118,7 @@ document.getElementById('btn_cr').addEventListener('click', e => {
             $Loading.hide()
         })
 })
+
 document.getElementById('btn_fs').addEventListener('click', e => {
     e.preventDefault()
     document.getElementById("youtubes").classList.add("hidden")
@@ -155,19 +157,15 @@ document.getElementById('btn_fs').addEventListener('click', e => {
                 let found = JSON.parse(found1[0])
                 console.log(found)
                 document.getElementById('singer-title').innerText = found["singer_name"] + " - " + found["song_title"]
-
-                // 1. Load the JavaScript client library.
-                const q = found["singer_name"] + "+" + found["song_title"]
-                gapi.load('client', () => start(q));
+                const q = found["singer_name"] + " " + found["song_title"] + " music video"
+                youtubeSearch(q)
             } else {
                 if (found2) {
                     let found = found2[1]
                     console.log(found)
                     document.getElementById('singer-title').innerText = found["song_title"]
-
-                    // 1. Load the JavaScript client library.
                     const q = "song " + found["song_title"]
-                    gapi.load('client', () => start(q));
+                    youtubeSearch(q)
                 } else {
                     document.getElementById('song').innerHTML = "<p>" + str + "</p>"
                 }
@@ -271,27 +269,18 @@ function reset_banner() {
     document.getElementById("banner_language").classList.add("hidden")
 }
 
-function start(q) {
-    console.log("start.q", q)
-    // 2. Initialize the JavaScript client library.
-    gapi.client.init({
-        'apiKey': 'AIzaSyCngJ3dYg5z4nBH8vjmpopmjl7EWCv2bdM',
-        part: 'snippet',
-    }).then(function () {
-        // 3. Initialize and make the API request.
-        return gapi.client.request({
-            'path': 'https://www.googleapis.com/youtube/v3/search?q=' + q + "+music+video",
+/**
+ * Youtube Data API Search
+ * @param {string} q search query
+ */
+function youtubeSearch(q) {
+    const url = `https://www.googleapis.com/youtube/v3/search?q=${q}&part=snippet&safeSearch=strict&type=video&key=AIzaSyCngJ3dYg5z4nBH8vjmpopmjl7EWCv2bdM`
+    fetch(url).then(response => response.json())
+        .then(data => {
+            console.log(data);
+            document.getElementById("youtubes").classList.remove("hidden")
+            data.items.forEach(d => {
+                document.getElementById('youtubes').innerHTML += '<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + d.id.videoId + '" frameborder="0"></iframe>'
+            })
         })
-    }).then(function (response) {
-        console.log(response.result);
-        const data = response.result
-        document.getElementById("youtubes").classList.remove("hidden")
-        data.items.forEach(d => {
-            document.getElementById('youtubes').innerHTML += '<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + d.id.videoId + '" frameborder="0"></iframe>'
-        })
-    }, function (reason) {
-        $Loading.hide()
-        console.log('Error: ' + reason.result.error.message);
-        alert("No data found on Youtube. Try again.");
-    });
-};
+}

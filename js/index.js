@@ -274,13 +274,15 @@ function reset_banner() {
  * @param {string} q search query
  */
 function youtubeSearch(q) {
-    const url = `https://www.googleapis.com/youtube/v3/search?q=${q}&part=snippet&safeSearch=strict&type=video&key=AIzaSyCngJ3dYg5z4nBH8vjmpopmjl7EWCv2bdM`
-    fetch(url).then(response => response.json())
-        .then(data => {
-            console.log(data);
-            document.getElementById("youtubes").classList.remove("hidden")
-            data.items.forEach(d => {
-                document.getElementById('youtubes').innerHTML += '<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + d.id.videoId + '" frameborder="0"></iframe>'
-            })
+    const url = `https://www.googleapis.com/youtube/v3/search?q=${q}&part=snippet&safeSearch=strict&type=video&key=AIzaSyBWD9JEt64rtpayZ6JBtnYrGqx0PZaa9J4`
+    fetch(url)
+    .then(data => {
+        console.log(data);
+        document.getElementById("youtubes").classList.remove("hidden")
+        data.items.forEach(d => {
+            document.getElementById('youtubes').innerHTML += '<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + d.id.videoId + '" frameborder="0"></iframe>'
         })
+    }).catch(r => {
+        console.log(r)
+    })
 }

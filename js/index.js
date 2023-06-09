@@ -276,6 +276,7 @@ function reset_banner() {
 function youtubeSearch(q) {
     const url = `https://www.googleapis.com/youtube/v3/search?q=${q}&part=snippet&safeSearch=strict&type=video&key=AIzaSyBWD9JEt64rtpayZ6JBtnYrGqx0PZaa9J4`
     fetch(url)
+    .then(response => response.json())
     .then(data => {
         console.log(data);
         document.getElementById("youtubes").classList.remove("hidden")

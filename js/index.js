@@ -168,7 +168,7 @@ document.getElementById('btn_fs').addEventListener('click', e => {
                     const q = "song " + found["song_title"]
                     youtubeSearch(q)
                 } else {
-                    document.getElementById('song').innerHTML = "<p>" + str + "</p>"
+                    document.getElementById('youtubes').innerHTML = "<p>" + str + "</p>"
                 }
             }
             hljs.highlightAll()

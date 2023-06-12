@@ -12,45 +12,134 @@
     <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <!-- nav -->
-    <div class="w-full flex h-20 items-center p-8 text-white bg-gradient-to-r from-slate-900 via-black to-slate-900">
-        <a href="./index.html" class="font-bold flex items-center">
-            <span class="banner"></span><span class="align-middle tracking-wider">Orumi Project#1</span><span class="hidden md:flex pl-2">ChatGPT API Practice</span>
-        </a>
-        <div class="ml-auto hidden lg:flex h-full items-center">
-            <ul class="flex space-x-8 font-bold cursor-pointer">
-                <li class="hover:underline" name="menu_cr"></li>
-                <li class="hover:underline" name="menu_fs"></li>
-            </ul>
-            <div class="w-0 h-full border-slate-500 border-l mx-4"></div>
-            <ul class="space-x-4 font-bold cursor-pointer flex items-center">
-                <li class="hover:underline flex items-center li-icon" name="btn_lang" value="English"><span class="icon-earth"></span><span class="pl-1">English</span></li>
-                <li class="hover:underline flex items-center li-icon" name="btn_git"><span class="icon-invertocat-logo-white-banner"></span><span class="pl-1">Github</span></li>
-            </ul>
+    <div class="display lg:container mx-auto">
+        <!-- header -->
+        <div class="header w-full flex h-20 items-center p-8">
+            <a href="./index.html" class="font-bold flex items-center">
+                <span class="banner"></span><span class="align-middle tracking-wider">Orumi Project#1</span><span class="hidden md:flex pl-2">ChatGPT API Practice</span>
+            </a>
+            <div class="ml-auto hidden lg:flex h-full items-center">
+                <ul class="flex space-x-8 font-bold cursor-pointer">
+                    <li class="hover:underline" name="menu_cr"></li>
+                    <li class="hover:underline" name="menu_fs"></li>
+                </ul>
+                <div class="w-0 h-full border-slate-500 border-l mx-4"></div>
+                <ul class="space-x-4 font-bold cursor-pointer flex items-center">
+                    <li class="hover:underline flex items-center li-icon" name="btn_lang" value="English"><span class="icon-earth"></span><span class="pl-1">English</span></li>
+                    <li class="hover:underline flex items-center li-icon" name="btn_git"><span class="icon-github-mark"></span><span class="pl-1">Github</span></li>
+                </ul>
+            </div>
+            <div class="ml-auto flex lg:hidden h-full">
+                <ul class="flex space-x-8 font-bold cursor-pointer items-center">
+                    <li class="banner-menu" id="btn_banner_menu"></li>
+                </ul>
+            </div>
         </div>
-        <div class="ml-auto flex lg:hidden h-full">
-            <ul class="flex space-x-8 font-bold cursor-pointer items-center">
-                <li class="banner-menu" id="btn_banner_menu"></li>
-            </ul>
+        <!-- //header -->
+        <!-- Ai Code Review -->
+        <div id="ctn_cr">
+            <div class="relative bg-cover bg-top w-full h-60" style="background-image:url('./assets/images/bg_sourcecode.jpg')">
+                <div class="bg-gradient-to-r from-black/75 via-black/75 to-black/25 w-full h-full"></div>
+                <div class="absolute p-8 top-0 right-0 text-white text-right">
+                    <p class="text-xl font-bold">OpenAI's GPT</p>
+                    <p>generative pre-trained transformer</p>
+                    <p>trained to understand natural language and code</p>
+                </div>
+            </div>
+            <div class="p-8 bg-[#75ac9d]">
+                <div class="flex items-center text-white">
+                    <div class="flex items-center">
+                        <div class="chatgpt-logo-white"></div><span class="pl-2">ChatGPT</span>
+                    </div>
+                    <div>
+                        <p class="px-2 font-bold" id="how_cr"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="py-10">
+                <div class="flex-1 border-slate-500 border-2 h-64 p-2">
+                    <div class="flex w-full h-full items-center">
+                        <textarea class="tta resize-none w-full h-full focus:outline-none focus:border-0 no-scrollbar" id="tta_code"></textarea>
+                        <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-sm" id="btn_cr">Ai</button>
+                    </div>
+                </div>
+            </div>
+            <div id="review"></div>
         </div>
+        <!-- //Ai Code Riview -->
+        <!-- Ai Find Song -->
+        <div class="hidden" id="ctn_fs">
+            <div class="relative bg-cover bg-top w-full h-60" style="background-image:url('./assets/images/bg_sourcecode.jpg')">
+                <div class="bg-gradient-to-r from-black/75 via-black/75 to-black/25 w-full h-full"></div>
+                <div class="absolute p-8 top-0 right-0 text-white text-right">
+                    <p class="text-xl font-bold">OpenAI's GPT</p>
+                    <p>generative pre-trained transformer</p>
+                    <p>trained to understand natural language and code</p>
+                </div>
+            </div>
+            <div class="p-8 bg-[#75ac9d]">
+                <div class="flex items-center text-white">
+                    <div class="flex items-center">
+                        <div class="chatgpt-logo-white"></div><span class="pl-2">ChatGPT</span>
+                    </div>
+                    <div>
+                        <p class="px-2 font-bold" id="how_fs"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="py-10">
+                <div class="flex-1 border-slate-500 border-2 h-64 p-2">
+                    <div class="flex w-full h-full items-center">
+                        <textarea class="tta resize-none w-full h-full focus:outline-none focus:border-0 no-scrollbar" id="tta_lyrics"></textarea>
+                        <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-sm" id="btn_fs">Ai</button>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden text-white" id="song">
+                <div class="p-8 bg-gradient-to-r from-slate-900 via-black to-black">
+                    <div class="flex items-center"><div class="youtube-logo"></div><span class="pl-2">Youtube Music Video Search</span><p class="font-bold px-2" id="singer-title"></p></div>
+                </div>
+                <div class="bg-black grid place-content-center gap-4 h-full p-8" id="youtubes"></div>
+            </div>
+        </div>
+        <!-- //Ai Find Song -->
+        <!-- Github -->
+        <div class="hidden" id="containerGithub">
+            <div class="px-4 pt-2">
+                <p class="flex items-center"><span class="invertocat-logo"></span><span class="pl-1">Project Github</span></p>
+                <div class="rounded bg-slate-800 text-white p-4 mt-2 text-sm">
+                    Clone : <a class="hover:underline" target="_blank" href="https://github.com/project-orumi/orumi-project1-chatgpt.git">https://github.com/project-orumi/orumi-project1-chatgpt.git</a>
+                </div>
+            </div>
+            <div class="px-4 pt-2">
+                <p class="flex items-center"><span class="invertocat-logo"></span><span class="pl-1">Other Projects Github</span></p>
+                <div class="rounded bg-slate-800 text-white p-4 mt-2 text-sm">
+                    <p>Html Resume with Tailwindcss</p>
+                    <p><a class="hover:underline" target="_blank" href="https://project-orumi.github.io/orumi-tailwindcss-resume-practice/">https://project-orumi.github.io/orumi-tailwindcss-resume-practice/</a></p>
+                </div>
+            </div>
+        </div>
+        <!-- //Github -->
     </div>
-    <div class="z-50 hidden absolute top-0 w-full h-full" id="banner_menu">
-        <div class="absolute bg-black/75 w-full h-full" name="menu_bg"></div>
-        <div class="absolute top-16 right-0 bg-slate-800 opacity-100 rounded text-white">
-            <ul class="font-bold cursor-pointer">
+    <!-- loading screen -->
+    <div class="hidden loadingscreen absolute top-0 left-0 w-full h-full" id="loadingscreen">
+        <div class="bg-black/75 w-full h-full"></div>
+        <div class="loading absolute top-1/2 left-1/2"></div>
+    </div>
+    <!-- //loading screen -->
+    <!-- sub_menu -->
+    <div class="hidden sub_menu w-full h-full fixed top-0 bottom-0" id="sub_menu">
+        <div class="w-full h-full fixed top-0 bottom-0 bg-black/75" id="blacklayer"></div>
+        <div class="hidden relative z-50 lg:container mx-auto top-20 right-0" id="banner_menu">
+            <ul class="inline-block float-right font-bold cursor-pointer bg-slate-800 opacity-100 rounded text-white">
                 <li class="px-8 py-4 hover:underline hover:bg-slate-700" name="menu_cr"></li>
                 <li class="px-8 py-4 hover:underline hover:bg-slate-700" name="menu_fs"></li>
-            </ul>
-            <ul class="font-bold cursor-pointer">
-                <li class="flex items-center li-icon px-8 py-4 hover:underline hover:bg-slate-700" name="btn_lang" value="English"><span class="icon-earth"></span><span class="pl-1">English</span></li>
-                <li class="flex items-center li-icon px-8 py-4 hover:underline hover:bg-slate-700" name="btn_git"><span class="icon-invertocat-logo-white-banner"></span><span class="pl-1">Github</span></li>
+                <li class="flex items-center px-8 py-4 hover:underline hover:bg-slate-700" name="btn_lang" value="English"><span class="icon icon-earth-white"></span><span class="pl-1">English</span></li>
+                <li class="flex items-center px-8 py-4 hover:underline hover:bg-slate-700" name="btn_git"><span class="icon icon-github-mark-white"></span><span class="pl-1">Github</span></li>
             </ul>
         </div>
-    </div>
-    <div class="z-50 hidden absolute top-0 w-full h-full" id="banner_language">
-        <div class="absolute bg-black/75 w-full h-full" name="menu_bg"></div>
-        <div class="absolute top-16 right-0 bg-slate-800 opacity-100 rounded text-white">
-            <ul class="font-bold cursor-pointer">
+        <div class="hidden relative z-50 flex justify-end lg:container mx-auto top-20 right-0" id="banner_language">
+            <ul class="font-bold cursor-pointer bg-slate-800 opacity-100 rounded text-white">
                 <li class="hover:underline hover:bg-slate-700 px-8 py-4" name="language" value="English">English</li>
                 <li class="hover:underline hover:bg-slate-700 px-8 py-4" name="language" value="Spanish">Español</li>
                 <li class="hover:underline hover:bg-slate-700 px-8 py-4" name="language" value="French">Français</li>
@@ -59,97 +148,7 @@
             </ul>
         </div>
     </div>
-    <!-- //nav -->
-    <!-- Ai Code Review -->
-    <div id="containerCodeReview">
-        <div class="relative bg-cover bg-top w-full h-60" style="background-image:url('./assets/images/bg_sourcecode.jpg')">
-            <div class="bg-gradient-to-r from-black/75 via-black/75 to-black/25 w-full h-full"></div>
-            <div class="absolute p-8 top-0 right-0 text-white text-right">
-                <p class="text-xl font-bold">OpenAI's GPT</p>
-                <p>generative pre-trained transformer</p>
-                <p>trained to understand natural language and code</p>
-            </div>
-        </div>
-        <div class="p-8 bg-[#75ac9d]">
-            <div class="flex items-center text-white">
-                <div class="flex items-center">
-                    <div class="chatgpt-logo"></div><span class="pl-2">ChatGPT</span>
-                </div>
-                <div>
-                    <p class="px-2 font-bold" id="how_cr"></p>
-                </div>
-            </div>
-        </div>
-        <div class="md:flex p-8">
-            <div class="flex-1 rounded border-slate-500 border-2 h-64 p-2">
-                <div class="flex w-full h-full items-center">
-                    <textarea class="tta resize-none w-full h-full focus:outline-none focus:border-0 no-scrollbar" id="tta_code"></textarea>
-                    <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-sm" id="btn_cr">Ai</button>
-                </div>
-            </div>
-        </div>
-        <div class="p-8" id="review"></div>
-    </div>
-    <!-- //Ai Code Riview -->
-    <!-- Ai Title from Lyrics -->
-    <div class="hidden" id="containerTitlefromLyrics">
-        <div class="relative bg-cover bg-top w-full h-60" style="background-image:url('./assets/images/bg_sourcecode.jpg')">
-            <div class="bg-gradient-to-r from-black/75 via-black/75 to-black/25 w-full h-full"></div>
-            <div class="absolute p-8 top-0 right-0 text-white text-right">
-                <p class="text-xl font-bold">OpenAI's GPT</p>
-                <p>generative pre-trained transformer</p>
-                <p>trained to understand natural language and code</p>
-            </div>
-        </div>
-        <div class="p-8 bg-[#75ac9d]">
-            <div class="flex items-center text-white">
-                <div class="flex items-center">
-                    <div class="chatgpt-logo"></div><span class="pl-2">ChatGPT</span>
-                </div>
-                <div>
-                    <p class="px-2 font-bold" id="how_fs"></p>
-                </div>
-            </div>
-        </div>
-        <div class="md:flex p-8">
-            <div class="flex-1 rounded border-slate-500 border-2 h-64 p-2">
-                <div class="flex w-full h-full items-center">
-                    <textarea class="tta resize-none w-full h-full focus:outline-none focus:border-0 no-scrollbar" id="tta_lyrics"></textarea>
-                    <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-sm" id="btn_fs">Ai</button>
-                </div>
-            </div>
-        </div>
-        <div class="text-white" id="song">
-            <div class="p-8 bg-gradient-to-r from-slate-900 via-black to-black">
-                <div class="flex items-center"><div class="youtube-logo"></div><span class="pl-2">Youtube API Search</span><p class="font-bold px-2" id="singer-title"></p></div>
-            </div>
-            <div class="hidden bg-black grid place-content-center gap-4 h-full p-8" id="youtubes"></div>
-        </div>
-    </div>
-    <!-- //Ai Title from Lyrics -->
-    <!-- Github -->
-    <div class="hidden" id="containerGithub">
-        <div class="px-4 pt-2">
-            <p class="flex items-center"><span class="invertocat-logo"></span><span class="pl-1">Project Github</span></p>
-            <div class="rounded bg-slate-800 text-white p-4 mt-2 text-sm">
-                Clone : <a class="hover:underline" target="_blank" href="https://github.com/project-orumi/orumi-project1-chatgpt.git">https://github.com/project-orumi/orumi-project1-chatgpt.git</a>
-            </div>
-        </div>
-        <div class="px-4 pt-2">
-            <p class="flex items-center"><span class="invertocat-logo"></span><span class="pl-1">Other Projects Github</span></p>
-            <div class="rounded bg-slate-800 text-white p-4 mt-2 text-sm">
-                <p>Html Resume with Tailwindcss</p>
-                <p><a class="hover:underline" target="_blank" href="https://project-orumi.github.io/orumi-tailwindcss-resume-practice/">https://project-orumi.github.io/orumi-tailwindcss-resume-practice/</a></p>
-            </div>
-        </div>
-    </div>
-    <!-- //Github -->
-    <!-- loading screen -->
-    <div class="hidden loadingscreen absolute top-0 left-0 w-full h-full" id="loadingscreen">
-        <div class="bg-black/75 w-full h-full"></div>
-        <div class="loading absolute top-1/2 left-1/2"></div>
-    </div>
-    <!-- //loading screen -->
+    <!-- //sub_menu -->
     <script src="./js/index.js"></script>
 </body>
 </html>

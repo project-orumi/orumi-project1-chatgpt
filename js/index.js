@@ -68,14 +68,15 @@ let $how_cr = document.getElementById('how_cr')
 let $how_fs = document.getElementById('how_fs')
 let $tta_code = document.getElementById("tta_code")
 let $tta_lyrics = document.getElementById("tta_lyrics")
-const initial_language = "Korean" // initialize default language
-document.getElementsByName("btn_lang").forEach(e => { e.setAttribute("value", initial_language); e.children[1].innerText = initial_language; })
-$menu_cr.forEach(e => { e.innerText = lang.menu.menu1[document.getElementsByName("btn_lang")[0].getAttribute("value")] })
-$menu_fs.forEach(e => { e.innerText = lang.menu.menu2[document.getElementsByName("btn_lang")[0].getAttribute("value")] })
-$how_cr.innerText = lang.how_cr[document.getElementsByName("btn_lang")[0].getAttribute("value")]
-$how_fs.innerText = lang.how_fs[document.getElementsByName("btn_lang")[0].getAttribute("value")]
+let $language = document.getElementsByName("language")
+const initial_language = $language[3].getAttribute("value") // initialize default language
+document.getElementsByName("btn_lang").forEach(e => { e.setAttribute("value", initial_language); e.children[1].innerText = $language[3].innerText; })
+$menu_cr.forEach(e => { e.innerText = lang.menu.menu1[initial_language] })
+$menu_fs.forEach(e => { e.innerText = lang.menu.menu2[initial_language] })
+$how_cr.innerText = lang.how_cr[initial_language]
+$how_fs.innerText = lang.how_fs[initial_language]
 $tta_code.value = sample.code
-$tta_lyrics.value = sample.lyrics[document.getElementsByName("btn_lang")[0].getAttribute("value")]
+$tta_lyrics.value = sample.lyrics[initial_language]
 
 document.getElementById('btn_cr').addEventListener('click', e => {
     e.preventDefault()
@@ -121,7 +122,7 @@ document.getElementById('btn_cr').addEventListener('click', e => {
 
 document.getElementById('btn_fs').addEventListener('click', e => {
     e.preventDefault()
-    document.getElementById("youtubes").classList.add("hidden")
+    document.getElementById("song").classList.add("hidden")
     document.getElementById('singer-title').innerText = ""
     document.getElementById('youtubes').innerHTML = ""
     $Loading.show()
@@ -179,9 +180,9 @@ document.getElementById('btn_fs').addEventListener('click', e => {
 document.getElementsByName("menu_cr").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
-        reset_banner()
-        document.getElementById("containerCodeReview").classList.remove("hidden")
-        document.getElementById("containerTitlefromLyrics").classList.add("hidden")
+        reset_sub_menu()
+        document.getElementById("ctn_cr").classList.remove("hidden")
+        document.getElementById("ctn_fs").classList.add("hidden")
         document.getElementById("containerGithub").classList.add("hidden")
     })
 })
@@ -190,9 +191,9 @@ document.getElementsByName("menu_cr").forEach(element => {
 document.getElementsByName("menu_fs").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
-        reset_banner()
-        document.getElementById("containerCodeReview").classList.add("hidden")
-        document.getElementById("containerTitlefromLyrics").classList.remove("hidden")
+        reset_sub_menu()
+        document.getElementById("ctn_cr").classList.add("hidden")
+        document.getElementById("ctn_fs").classList.remove("hidden")
         document.getElementById("containerGithub").classList.add("hidden")
     })
 })
@@ -201,9 +202,9 @@ document.getElementsByName("menu_fs").forEach(element => {
 document.getElementsByName("btn_git").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
-        reset_banner()
-        document.getElementById("containerCodeReview").classList.add("hidden")
-        document.getElementById("containerTitlefromLyrics").classList.add("hidden")
+        reset_sub_menu()
+        document.getElementById("ctn_cr").classList.add("hidden")
+        document.getElementById("ctn_fs").classList.add("hidden")
         document.getElementById("containerGithub").classList.remove("hidden")
     })
 })
@@ -211,7 +212,8 @@ document.getElementsByName("btn_git").forEach(element => {
 // (not lg screen) menu button click event
 document.getElementById("btn_banner_menu").addEventListener("click", event => {
     event.preventDefault()
-    reset_banner()
+    reset_sub_menu()
+    document.getElementById("sub_menu").classList.remove("hidden")
     document.getElementById("banner_menu").classList.remove("hidden")
 })
 
@@ -219,7 +221,8 @@ document.getElementById("btn_banner_menu").addEventListener("click", event => {
 document.getElementsByName("btn_lang").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
-        reset_banner()
+        reset_sub_menu()
+        document.getElementById("sub_menu").classList.remove("hidden")
         document.getElementById("banner_language").classList.remove("hidden")
     })
 })
@@ -228,7 +231,7 @@ document.getElementsByName("btn_lang").forEach(element => {
 document.getElementsByName("language").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
-        reset_banner()
+        reset_sub_menu()
         const selected = element.getAttribute("value")
         document.getElementsByName("btn_lang").forEach(e => { e.setAttribute("value", selected); e.children[1].innerText = element.innerText; })
         $how_cr.innerText = lang.how_cr[selected]
@@ -239,12 +242,10 @@ document.getElementsByName("language").forEach(element => {
     })
 })
 
-// background of menu click event : hide the menu
-document.getElementsByName("menu_bg").forEach(element => {
-    element.addEventListener("click", event => {
-        event.preventDefault()
-        element.parentNode.classList.add("hidden")
-    })
+// blacklayer click event : hide the menu
+document.getElementById("blacklayer").addEventListener("click", event => {
+    event.preventDefault()
+    reset_sub_menu()
 })
 
 // textarea highlighting : focus
@@ -264,7 +265,8 @@ Array.from(document.getElementsByClassName("tta")).forEach(element => {
 /**
  * (not lg screen) hide a banner menu and language menu
  */
-function reset_banner() {
+function reset_sub_menu() {
+    document.getElementById("sub_menu").classList.add("hidden")
     document.getElementById("banner_menu").classList.add("hidden")
     document.getElementById("banner_language").classList.add("hidden")
 }
@@ -276,14 +278,14 @@ function reset_banner() {
 function youtubeSearch(q) {
     const url = `https://www.googleapis.com/youtube/v3/search?q=${q}&part=snippet&safeSearch=strict&type=video&key=AIzaSyBWD9JEt64rtpayZ6JBtnYrGqx0PZaa9J4`
     fetch(url)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        document.getElementById("youtubes").classList.remove("hidden")
-        data.items.forEach(d => {
-            document.getElementById('youtubes').innerHTML += '<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + d.id.videoId + '" frameborder="0"></iframe>'
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            document.getElementById("song").classList.remove("hidden")
+            data.items.forEach(d => {
+                document.getElementById('youtubes').innerHTML += '<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + d.id.videoId + '" frameborder="0"></iframe>'
+            })
+        }).catch(r => {
+            console.log(r)
         })
-    }).catch(r => {
-        console.log(r)
-    })
 }

@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <div class="display lg:container mx-auto">
-        <!-- header -->
-        <div class="header w-full flex h-20 items-center p-8">
+    <!-- header -->
+    <section>
+        <div class="lg:container mx-auto p-10 header w-full flex h-20 items-center">
             <a href="./index.html" class="font-bold flex items-center">
                 <span class="banner"></span><span class="align-middle tracking-wider">Orumi Project#1</span><span class="hidden md:flex pl-2">ChatGPT API Practice</span>
             </a>
@@ -35,53 +35,55 @@
                 </ul>
             </div>
         </div>
-        <!-- //header -->
-        <!-- main title -->
-        <section id="main_title">
-            <div class="h-[50vh] p-10 grid content-center">
-                <p class="font-bold text-8xl text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text">ChatGPT API Practice</p>
-                <p class="font-bold text-xl text-center mt-4">OpenAI's GPT<span class="font-normal text-base">(generative pre-trained transformer)</span></p>
-                <p class="text-xl text-center">is trained to understand natural language and code.</p>
+    </section>
+    <!-- //header -->
+    <!-- main title -->
+    <section id="main_title">
+        <div class="lg:container mx-auto h-[30vh] lg:h-[50vh] p-10 grid content-center">
+            <p class="font-bold text-4xl lg:text-8xl text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text">ChatGPT API Practice</p>
+            <p class="font-bold text-base lg:text-xl text-center mt-4">OpenAI's GPT<span class="font-normal text-base">(generative pre-trained transformer)</span></p>
+            <p class="text-base lg:text-xl text-center">is trained to understand natural language and code.</p>
+        </div>
+    </section>
+    <!-- //title -->
+    <!-- Code Review title -->
+    <section class="bg-black text-white" id="cr_title">
+        <div class="lg:container mx-auto h-[30vh] lg:h-[40vh] p-10 flex">
+            <div class="bg-cover bg-top flex-1" style="background-image:url('./assets/images/bg_sourcecode.jpg')">
+                <div class="bg-gradient-to-r from-black/75 via-black/50 to-black/75 w-full h-full"></div>
             </div>
-        </section>
-        <!-- //title -->
-        <!-- Code Review title -->
-        <section id="cr_title">
-            <div class="h-[40vh] p-10 bg-black flex text-white">
-                <div class="bg-cover bg-top flex-1" style="background-image:url('./assets/images/bg_sourcecode.jpg')">
-                    <div class="bg-gradient-to-r from-black/75 via-black/50 to-black/75 w-full h-full"></div>
-                </div>
-                <div class="flex-1 relative">
-                    <p class="font-bold text-4xl text-right">Code Review</p>
-                    <p class="text-lg text-right mt-2">ChatGPT can review your source code!</p>
-                    <p class="text-lg text-right">Automatically detect any language.</p>
-                    <p class="cursor-pointer font-bold text-3xl text-right absolute right-0 bottom-0 bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500 from-pink-500 hover:from-puple-500 hover:via-pink-400 hover:to-blue-500" id="try_cr">Let's Try</p>
-                </div>
+            <div class="flex-1 relative">
+                <p class="font-bold text-4xl text-right">Code Review</p>
+                <p class="text-lg text-right mt-2">ChatGPT can review your source code!</p>
+                <p class="text-lg text-right">Automatically detect any language.</p>
+                <p class="cursor-pointer font-bold text-3xl text-right absolute right-0 bottom-0 bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500 from-pink-500 hover:from-puple-500 hover:via-pink-400 hover:to-blue-500" id="try_cr">Let's Try</p>
             </div>
-        </section>
-        <!-- Code Review title -->
-        <!-- Find Song title -->
-        <section id="fs_title">
-            <div class="h-[40vh] p-10 flex">
-                <div class="flex-1 relative">
-                    <p class="font-bold text-4xl text-right">Find Song</p>
-                    <p class="text-lg text-right mt-2">Analyze lyrics to find songs.</p>
-                    <p class="cursor-pointer font-bold text-3xl text-right absolute right-0 bottom-0 bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text hover:from-cyan-500 hover:to-cyan-600" id="try_fs">Let's Try</p>
-                </div>
+        </div>
+    </section>
+    <!-- Code Review title -->
+    <!-- Find Song title -->
+    <section id="fs_title">
+        <div class="lg:container mx-auto h-[30vh] lg:h-[40vh] p-10 flex">
+            <div class="flex-1 relative">
+                <p class="font-bold text-4xl text-right">Find Song</p>
+                <p class="text-lg text-right mt-2">Analyze lyrics to find songs.</p>
+                <p class="cursor-pointer font-bold text-3xl text-right absolute right-0 bottom-0 bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text hover:from-cyan-500 hover:to-cyan-600" id="try_fs">Let's Try</p>
             </div>
-        </section>
-        <!-- //Find Song title -->
-        <!-- footer title -->
-        <section id="ft_title">
-            <div class="h-[20vh] p-10 flex bg-gray-100 text-slate-600">
-                <div class="flex-1 relative">
-                    <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium enim eligendi quia corporis, alias illo autem eos quod inventore quos dolor explicabo numquam suscipit adipisci minus nobis. Et, iusto dolores.</p>
-                </div>
+        </div>
+    </section>
+    <!-- //Find Song title -->
+    <!-- footer title -->
+    <section class="bg-gray-100 text-slate-600" id="ft_title">
+        <div class="lg:container mx-auto h-[20vh] p-10 flex">
+            <div class="flex-1 relative">
+                <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium enim eligendi quia corporis, alias illo autem eos quod inventore quos dolor explicabo numquam suscipit adipisci minus nobis. Et, iusto dolores.</p>
             </div>
-        </section>
-        <!-- //Find Song title -->
-        <!-- Ai Code Review -->
-        <section class="hidden p-10" id="ctn_cr">
+        </div>
+    </section>
+    <!-- //Find Song title -->
+    <!-- Ai Code Review -->
+    <section class="hidden p-10" id="ctn_cr">
+        <div class="lg:container mx-auto p-10">
             <div class="h-auto flex" id="sample_code">
                 <div class="flex-1 relative">
                     <p class="font-bold text-4xl">Sample</p>
@@ -89,9 +91,9 @@
                     <div>
                         <pre>
                         <code>lst = []
-lst.append(1)
-lst.append(lst)
-print(lst)</code>
+    lst.append(1)
+    lst.append(lst)
+    print(lst)</code>
                         </pre>
                         <div>
                             이 코드는 무한루프를 발생시킵니다.<br><br>`lst.append(lst)` 부분에서 `lst` 리스트 자기 자신을 참조하는 상황이 발생하기 때문에 무한루프에 빠지게 됩니다.<br><br>리스트 안에 리스트를 추가하고자 하는 경우에는 `lst.append([1, 2, 3])` 과 같이 리스트를 추가해야 합니다.<br><br>출력 결과는 아래와 같이 나오게 됩니다.<br><br>
@@ -120,10 +122,12 @@ print(lst)</code>
                 </div>
             </div>
             <div id="review"></div>
-        </section>
-        <!-- //Ai Code Riview -->
-        <!-- Ai Find Song -->
-        <section class="hidden" id="ctn_fs">
+        </div>
+    </section>
+    <!-- //Ai Code Riview -->
+    <!-- Ai Find Song -->
+    <section class="hidden" id="ctn_fs">
+        <div class="lg:container mx-auto p-10">
             <div class="p-8 bg-[#75ac9d]">
                 <div class="flex items-center text-white">
                     <div class="flex items-center">
@@ -148,17 +152,19 @@ print(lst)</code>
                 </div>
                 <div class="bg-black grid place-content-center gap-4 h-full p-8" id="youtubes"></div>
             </div>
-        </section>
-        <!-- //Ai Find Song -->
-        <!-- Github -->
-        <div class="hidden" id="containerGithub">
-            <div class="px-4 pt-2">
+        </div>
+    </section>
+    <!-- //Ai Find Song -->
+    <!-- Github -->
+    <section class="hidden" id="ctn_github">
+        <div class="lg:container mx-auto p-10 grid space-y-8">
+            <div>
                 <p class="flex items-center"><span class="icon icon-github-mark"></span><span class="pl-1">Project Github</span></p>
                 <div class="rounded bg-slate-800 text-white p-4 mt-2 text-sm">
                     Clone : <a class="hover:underline" target="_blank" href="https://github.com/project-orumi/orumi-project1-chatgpt.git">https://github.com/project-orumi/orumi-project1-chatgpt.git</a>
                 </div>
             </div>
-            <div class="px-4 pt-2">
+            <div>
                 <p class="flex items-center"><span class="icon icon-github-mark"></span><span class="pl-1">Other Projects Github</span></p>
                 <div class="rounded bg-slate-800 text-white p-4 mt-2 text-sm">
                     <p>Html Resume with Tailwindcss</p>
@@ -166,8 +172,8 @@ print(lst)</code>
                 </div>
             </div>
         </div>
-        <!-- //Github -->
-    </div>
+    </section>
+    <!-- //Github -->
     <!-- loading screen -->
     <div class="hidden loadingscreen absolute top-0 left-0 w-full h-full" id="loadingscreen">
         <div class="bg-black/75 w-full h-full"></div>

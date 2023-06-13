@@ -81,6 +81,10 @@
     vertical-align: middle;
 }
 
+.icon-chatgpt {
+    background-image: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg');
+}
+
 .chatgpt-logo {
     background: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg') no-repeat center;
     width: 2.0rem;

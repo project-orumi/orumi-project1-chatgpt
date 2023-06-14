@@ -18,4 +18,6 @@ You're my chemical hype boy (ah-ah)
 Hype Boy ネマン オンヘ
 Hype Boy ナガ ゼンヘ`
     }
-}
+};
+
+export { sample };

@@ -30,3 +30,5 @@ const lang = {
         "Japannese": "歌詞を送信し、AIが曲名を検索するまでお待ちください。 20～30秒ほどかかります。"
     }
 }
+
+export { lang }

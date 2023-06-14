@@ -1,13 +1,7 @@
-let $Loading = (function () {
-    const $loadingscreen = document.getElementById("loadingscreen")
-    this.show = function () {
-        $loadingscreen.classList.remove("hidden")
-    }
-    this.hide = function () {
-        $loadingscreen.classList.add("hidden")
-    }
-    return this
-})()
+import { lang } from "./lang.js"
+import { sample } from "./sample.js"
+import { Loading } from "./loading.js"
+
 const url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`
 const $menu_cr = document.getElementsByName("menu_cr")
 const $menu_fs = document.getElementsByName("menu_fs")
@@ -16,8 +10,9 @@ const $how_fs = document.getElementById('how_fs')
 const $tta_code = document.getElementById("tta_code")
 const $tta_lyrics = document.getElementById("tta_lyrics")
 const $language = document.getElementsByName("language")
+const $btn_lang = document.getElementsByName("btn_lang")
 const initial_language = $language[3].getAttribute("value") // initialize default language
-document.getElementsByName("btn_lang").forEach(e => { e.setAttribute("value", initial_language); e.children[1].innerText = $language[3].innerText; })
+$btn_lang.forEach(e => { e.setAttribute("value", initial_language); e.children[1].innerText = $language[3].innerText; })
 $menu_cr.forEach(e => { e.innerText = lang.menu.menu1[initial_language] })
 $menu_fs.forEach(e => { e.innerText = lang.menu.menu2[initial_language] })
 $how_cr.innerText = lang.how_cr[initial_language]
@@ -27,7 +22,7 @@ $tta_lyrics.value = sample.lyrics[initial_language]
 
 document.getElementById('btn_cr').addEventListener('click', e => {
     e.preventDefault()
-    $Loading.show()
+    Loading.show()
     let code = $tta_code.value
     let data = [
         { "role": "system", "content": "The assistant is a code review expert." },
@@ -61,7 +56,7 @@ document.getElementById('btn_cr').addEventListener('click', e => {
             })
             document.getElementById('review').innerHTML = str
             hljs.highlightAll()
-            $Loading.hide()
+            Loading.hide()
         })
 })
 
@@ -70,7 +65,7 @@ document.getElementById('btn_fs').addEventListener('click', e => {
     document.getElementById("song").classList.add("hidden")
     document.getElementById('singer-title').innerText = ""
     document.getElementById('youtubes').innerHTML = ""
-    $Loading.show()
+    Loading.show()
     let lyrics = $tta_lyrics.value
     let data = [
         { "role": "system", "content": "Assistant finds song titles by song lyrics." },
@@ -111,7 +106,7 @@ document.getElementById('btn_fs').addEventListener('click', e => {
                 }
             }
             hljs.highlightAll()
-            $Loading.hide()
+            Loading.hide()
         })
 })
 

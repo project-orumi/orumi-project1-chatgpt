@@ -107,6 +107,7 @@ document.getElementById('btn_fs').addEventListener('click', e => {
                     const q = "song " + found["song_title"]
                     youtubeSearch(q)
                 } else {
+                    document.getElementById("song").classList.remove("hidden")
                     document.getElementById('youtubes').innerHTML = "<p>" + str + "</p>"
                 }
             }

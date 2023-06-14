@@ -11,14 +11,19 @@ const $tta_code = document.getElementById("tta_code")
 const $tta_lyrics = document.getElementById("tta_lyrics")
 const $language = document.getElementsByName("language")
 const $btn_lang = document.getElementsByName("btn_lang")
-const initial_language = $language[3].getAttribute("value") // initialize default language
+const initial_language = $language[3].getAttribute("value") // default language
+
+// initialize sample code
+$tta_code.value = sample.code
+
+// initialize default language
 $btn_lang.forEach(e => { e.setAttribute("value", initial_language); e.children[1].innerText = $language[3].innerText; })
 $menu_cr.forEach(e => { e.innerText = lang.menu.menu1[initial_language] })
 $menu_fs.forEach(e => { e.innerText = lang.menu.menu2[initial_language] })
 $how_cr.innerText = lang.how_cr[initial_language]
 $how_fs.innerText = lang.how_fs[initial_language]
-$tta_code.value = sample.code
 $tta_lyrics.value = sample.lyrics[initial_language]
+
 
 document.getElementById('btn_cr').addEventListener('click', e => {
     e.preventDefault()

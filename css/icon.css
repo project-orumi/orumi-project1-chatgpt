@@ -1,0 +1,69 @@
+.icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    background-position: center;
+    background-size: 1.0rem 1.0rem;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.icon-earth {
+    background-image: url('/orumi-project1-chatgpt/assets/icons/earth.svg');
+}
+
+.icon-earth-white {
+    background-image: url('/orumi-project1-chatgpt/assets/icons/earth.svg');
+    filter: brightness(100%) contrast(100%) hue-rotate(0deg) invert(100%) saturate(100%) sepia(0%);
+}
+
+.icon-github-mark {
+    background-image: url('/orumi-project1-chatgpt/assets/icons/github-mark/github-mark.svg');
+}
+
+.icon-github-mark-white {
+    background-image: url('/orumi-project1-chatgpt/assets/icons/github-mark/github-mark-white.svg');
+}
+
+.icon-chatgpt {
+    background-image: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg');
+}
+
+.icon-banner-menu {
+    background-image: url('/orumi-project1-chatgpt/assets/icons/menu.svg');
+    width: 0.9rem;
+    height: 0.9rem;
+    background-size: 0.9rem 0.9rem;
+}
+
+.icon-chatgpt-logo {
+    background: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg') no-repeat center;
+    width: 2.0rem;
+    height: 2.0rem;
+    background-size: 2.0rem 2.0rem;
+    vertical-align: middle;
+}
+
+.icon-chatgpt-logo-white {
+    background: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg') no-repeat center;
+    width: 2.0rem;
+    height: 2.0rem;
+    background-size: 2.0rem 2.0rem;
+    vertical-align: middle;
+    filter: brightness(100%) contrast(100%) hue-rotate(0deg) invert(100%) saturate(100%) sepia(0%);
+}
+
+.icon-youtube-logo {
+    background: url('/orumi-project1-chatgpt/assets/icons/logo-youtube.svg') no-repeat center;
+    width: 2.0rem;
+    height: 2.0rem;
+    background-size: 2.0rem 2.0rem;
+    vertical-align: middle;
+}
+
+.banner {
+    background: url('/orumi-project1-chatgpt/assets/icons/banner.svg') no-repeat center;
+    width: 2.0rem;
+    height: 2.0rem;
+    background-size: 1.5rem 1.5rem;
+    vertical-align: middle;
+}

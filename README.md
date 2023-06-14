@@ -1,4 +1,6 @@
 # orumi-project1-chatgpt
+https://project-orumi.github.io/orumi-project1-chatgpt/
+
 이 사이트는 chatGPT API를 이용합니다. 현재 "코드 리뷰", "노래 찾기" 메뉴가 있습니다.
 1. 코드 리뷰 - 소스코드를 chatGPT가 분석하여 코드 리뷰를 해줍니다. 프로그램 개발보다는 언어 공부에 도움이 됩니다.
 
@@ -12,7 +14,7 @@ chatGPT가 노래의 가사를 분석하여 노래 제목을 찾아줍니다. �
 4. svg
 
 ## SVG 코드 정리
-좌표 (28, 16) 반지름 2.8\
+원의 좌표 (28, 16) 원의 반지름 2.8\
 회전좌표 (16, 16)
 ```
 <circle cx="28" cy="16" r="2.8" opacity="1.0">

@@ -104,7 +104,6 @@ document.getElementById('btn_cr').addEventListener('click', e => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             let str = data.choices[0].message.content
             str = str.replace(/(```[\s\S]*?```)|(\n)/g, (match, code, lineFeed) => {
                 if (code) {
@@ -113,7 +112,6 @@ document.getElementById('btn_cr').addEventListener('click', e => {
                     return '<br>'
                 }
             })
-            console.log(str)
             document.getElementById('review').innerHTML = str
             hljs.highlightAll()
             $Loading.hide()
@@ -145,25 +143,19 @@ document.getElementById('btn_fs').addEventListener('click', e => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log("data", data)
             let str = data.choices[0].message.content
-            // If the g flag is not used, only the first complete match and its related capturing groups are returned.
             const pattern1 = /{\s*"song_title"\s*:\s*".*",\s*"singer_name"\s*:\s*".*"\s*}/
             const pattern2 = /title\s*is\s*"(.*)"/
             let found1 = str.match(pattern1)
             let found2 = str.match(pattern2)
-            console.log("found1", found1)
-            console.log("found2", found2)
             if (found1) {
                 let found = JSON.parse(found1[0])
-                console.log(found)
                 document.getElementById('singer-title').innerText = found["singer_name"] + " - " + found["song_title"]
                 const q = found["singer_name"] + " " + found["song_title"] + " music video"
                 youtubeSearch(q)
             } else {
                 if (found2) {
                     let found = found2[1]
-                    console.log(found)
                     document.getElementById('singer-title').innerText = found["song_title"]
                     const q = "song " + found["song_title"]
                     youtubeSearch(q)
@@ -314,12 +306,11 @@ function youtubeSearch(q) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             document.getElementById("song").classList.remove("hidden")
             data.items.forEach(d => {
                 document.getElementById('youtubes').innerHTML += '<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + d.id.videoId + '" frameborder="0"></iframe>'
             })
         }).catch(r => {
-            console.log(r)
+
         })
 }

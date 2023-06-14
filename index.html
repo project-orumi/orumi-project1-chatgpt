@@ -39,7 +39,6 @@
         </div>
     </section>
     <!-- //header -->
-
     <!-- main title -->
     <section id="main_title">
         <div class="lg:container mx-auto h-[300px] lg:h-[600px] p-10 grid content-center">
@@ -49,7 +48,6 @@
         </div>
     </section>
     <!-- //main title -->
-
     <!-- Code Review title -->
     <section class="bg-black text-white" id="cr_title">
         <div class="lg:container mx-auto h-[300px] md:h-[500px] p-10 flex">
@@ -72,7 +70,6 @@
         </div>
     </section>
     <!-- Code Review title -->
-
     <!-- Find Song title -->
     <section id="fs_title">
         <div class="lg:container mx-auto h-[300px] md:h-[500px] p-10">
@@ -91,88 +88,87 @@
         </div>
     </section>
     <!-- //Find Song title -->
-
-    <!-- footer title -->
-    <section class="bg-gray-100 text-slate-600" id="ft_title">
-        <div class="lg:container mx-auto h-[20vh] p-10 flex">
-            <div class="flex-1 relative">
-                <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium enim eligendi quia corporis, alias illo autem eos quod inventore quos dolor explicabo numquam suscipit adipisci minus nobis. Et, iusto dolores.</p>
+    <!-- Ai Code Review -->
+    <section class="hidden" id="ctn_cr">
+        <div class="bg-black text-white">
+            <div class="lg:container mx-auto h-[300px] md:h-[500px] p-10 flex">
+                <div class="bg-cover bg-top flex-1 relative" style="background-image:url('./assets/images/bg_sourcecode.jpg')">
+                    <div class="absolute bg-gradient-to-r from-black/75 via-black/25 to-black/75 w-full h-full"></div>
+                    <div class="absolute bg-gradient-to-t from-black/75 via-black/25 to-black/75 w-full h-full"></div>
+                </div>
+                <div class="flex-1 relative">
+                    <div class="grid h-full">
+                        <div>
+                            <p class="font-bold text-right text-2xl md:text-4xl">Code Review</p>
+                            <p class="text-lg text-right text-xs md:text-base lg:text-lg mt-2">ChatGPT can review your source code!</p>
+                            <p class="text-lg text-right text-xs md:text-base lg:text-lg">Automatically detect any language.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-    <!-- //Find Song title -->
-
-    <!-- Ai Code Review -->
-    <section class="hidden p-10" id="ctn_cr">
-        <div class="lg:container mx-auto p-10">
-            <div class="h-auto flex" id="sample_code">
-                <div class="flex-1 relative">
-                    <p class="font-bold text-4xl">Sample</p>
-                    <p class="text-lg mt-2">sample source code.</p>
-                    <div>
-                        <pre>
-                        <code>lst = []
-lst.append(1)
-lst.append(lst)
-print(lst)</code>
-                        </pre>
-                        <div>
-                            이 코드는 무한루프를 발생시킵니다.<br><br>`lst.append(lst)` 부분에서 `lst` 리스트 자기 자신을 참조하는 상황이 발생하기 때문에 무한루프에 빠지게 됩니다.<br><br>리스트 안에 리스트를 추가하고자 하는 경우에는 `lst.append([1, 2, 3])` 과 같이 리스트를 추가해야 합니다.<br><br>출력 결과는 아래와 같이 나오게 됩니다.<br><br>
-                            <pre><code>[1, [...]]</code></pre>
-                        </div>
-                        <script>hljs.highlightAll()</script>
+        <div class="h-96 flex items-center">
+            <div class="lg:container mx-auto p-10">
+                <div class="flex-1 p-8 border-2 border-[#75ac9d] bg-white">
+                    <div class="flex w-full items-center">
+                        <textarea class="tta resize-none w-full h-56 focus:outline-none focus:border-0 no-scrollbar" id="tta_code"></textarea>
+                        <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-base" id="btn_cr">Ai</button>
                     </div>
                 </div>
-            </div>
-            <div class="pt-24">
-                <div class="flex items-center text-white p-8 bg-[#75ac9d]">
-                    <div class="flex items-center">
-                        <div class="icon icon-chatgpt-logo-white"></div><span class="pl-2">ChatGPT</span>
-                    </div>
-                    <div>
-                        <p class="px-2 font-bold" id="how_cr"></p>
-                    </div>
+                <div>
+                    <p class="font-bold text-center text-white text-sm mt-2" id="how_cr"></p>
                 </div>
             </div>
-            <div class="pt-8">
-                <div class="flex-1 border-slate-500 border-2 h-64 p-2">
-                    <div class="flex w-full h-full items-center">
-                        <textarea class="tta resize-none w-full h-full focus:outline-none focus:border-0 no-scrollbar" id="tta_code"></textarea>
-                        <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-sm" id="btn_cr">Ai</button>
-                    </div>
+        </div>
+        <div class="lg:container mx-auto p-10 flex items-center">
+            <div class="flex items-center">
+                <div class="p-1 bg-[#75ac9d] rounded">
+                    <div class="icon icon-chatgpt-logo-white"></div>
                 </div>
+                <div class="pl-2" id="chatgpt-codereview"></div>
             </div>
-            <div id="review"></div>
         </div>
     </section>
     <!-- //Ai Code Riview -->
     <!-- Ai Find Song -->
     <section class="hidden" id="ctn_fs">
-        <div class="lg:container mx-auto p-10">
-            <div class="p-8 bg-[#75ac9d]">
-                <div class="flex items-center text-white">
-                    <div class="flex items-center">
-                        <div class="icon icon-chatgpt-logo-white"></div><span class="pl-2">ChatGPT</span>
-                    </div>
-                    <div>
-                        <p class="px-2 font-bold" id="how_fs"></p>
-                    </div>
+        <div class="lg:container mx-auto h-[300px] md:h-[500px] p-10">
+            <div class="grid h-full">
+                <div>
+                    <p class="font-bold text-2xl md:text-4xl">Find Song</p>
+                    <p class="text-xs md:text-base lg:text-lg mt-2">Analyze lyrics to find songs.</p>
+                    <p class="md:mt-10 text-sm md:text-2xl text-right mt-5">"Fiesta nae maeume taeyangeul kkuk samginchae</p>
+                    <p class="md:mt-2 text-sm md:text-2xl text-right">yeongwontorok"</p>
+                    <p class="mt-4 text-xs md:text-lg text-right flex justify-end items-center"><span class="inline-block icon icon-chatgpt"></span><span class="pl-1">The song title is "Fiesta" and the singer name is "IZ*ONE"</span></p>
                 </div>
             </div>
-            <div class="py-10">
-                <div class="flex-1 border-slate-500 border-2 h-64 p-2">
-                    <div class="flex w-full h-full items-center">
-                        <textarea class="tta resize-none w-full h-full focus:outline-none focus:border-0 no-scrollbar" id="tta_lyrics"></textarea>
-                        <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-sm" id="btn_fs">Ai</button>
+        </div>
+        <div class="bg-[#75ac9d] h-96 flex items-center">
+            <div class="lg:container mx-auto p-10">
+                <div class="flex-1 px-16 py-8 rounded-full bg-white">
+                    <div class="flex w-full items-center">
+                        <textarea class="tta resize-none w-full h-20 focus:outline-none focus:border-0 no-scrollbar" id="tta_lyrics"></textarea>
+                        <button class="bg-indigo-500 rounded text-white px-2 py-1 m-2 text-base" id="btn_fs">Ai</button>
                     </div>
                 </div>
-            </div>
-            <div class="hidden text-white" id="song">
-                <div class="p-8 bg-gradient-to-r from-slate-900 via-black to-black">
-                    <div class="flex items-center"><div class="icon icon-youtube-logo"></div><span class="pl-2">Youtube Music Video Search</span><p class="font-bold px-2" id="singer-title"></p></div>
+                <div>
+                    <p class="font-bold text-center text-white text-sm mt-2" id="how_fs"></p>
                 </div>
-                <div class="bg-black grid place-content-center gap-4 h-full p-8" id="youtubes"></div>
             </div>
+        </div>
+        <div class="lg:container mx-auto p-10 h-56 flex items-center">
+            <div class="flex items-center">
+                <div class="p-1 bg-[#75ac9d] rounded">
+                    <div class="icon icon-chatgpt-logo-white"></div>
+                </div>
+                <div class="pl-2" id="chatgpt-songtitle"></div>
+            </div>
+        </div>
+        <div class="hidden text-white" id="song">
+            <div class="flex items-center p-8 bg-gradient-to-r from-slate-900 via-black to-black">
+                <div class="flex items-center"><div class="icon icon-youtube-logo"></div><span class="pl-2">Youtube Search</span><p class="font-bold px-2" id="singer-title"></p></div>
+            </div>
+            <div class="bg-black grid place-content-center gap-4 min-h-1 p-8" id="youtubes"></div>
         </div>
     </section>
     <!-- //Ai Find Song -->
@@ -224,5 +220,12 @@ print(lst)</code>
     </div>
     <!-- //sub_menu -->
     <script type="module" src="./js/site.js"></script>
+    <!-- footer title -->
+    <section class="bg-gray-100 text-slate-600" id="ft_title">
+        <div class="lg:container mx-auto h-56 p-10">
+            <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium enim eligendi quia corporis, alias illo autem eos quod inventore quos dolor explicabo numquam suscipit adipisci minus nobis. Et, iusto dolores.</p>
+        </div>
+    </section>
+    <!-- //Find Song title -->
 </body>
 </html>

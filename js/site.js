@@ -59,7 +59,7 @@ document.getElementById('btn_cr').addEventListener('click', e => {
                     return '<br>'
                 }
             })
-            document.getElementById('review').innerHTML = str
+            document.getElementById('chatgpt-codereview').innerHTML = str
             hljs.highlightAll()
             Loading.hide()
         })
@@ -92,23 +92,25 @@ document.getElementById('btn_fs').addEventListener('click', e => {
         .then(data => {
             let str = data.choices[0].message.content
             const pattern1 = /{\s*"song_title"\s*:\s*".*",\s*"singer_name"\s*:\s*".*"\s*}/
-            const pattern2 = /title\s*is\s*"(.*)"/
+            const pattern2 = /^.*title\s*is\s*"(.*)".*/
             let found1 = str.match(pattern1)
             let found2 = str.match(pattern2)
-            if (found1) {
+            if (found1 && found2) {
                 let found = JSON.parse(found1[0])
                 document.getElementById('singer-title').innerText = found["singer_name"] + " - " + found["song_title"]
-                const q = found["singer_name"] + " " + found["song_title"] + " music video"
+                const q = found["singer_name"] + " " + found["song_title"]
                 youtubeSearch(q)
+                document.getElementById('chatgpt-songtitle').innerText = found2[0]
             } else {
                 if (found2) {
                     let found = found2[1]
                     document.getElementById('singer-title').innerText = found["song_title"]
                     const q = "song " + found["song_title"]
                     youtubeSearch(q)
+                    document.getElementById('chatgpt-songtitle').innerText = str
                 } else {
                     document.getElementById("song").classList.remove("hidden")
-                    document.getElementById('youtubes').innerHTML = "<p>" + str + "</p>"
+                    document.getElementById('chatgpt-songtitle').innerText = str
                 }
             }
             hljs.highlightAll()
@@ -124,7 +126,6 @@ document.getElementsByName("menu_cr").forEach(element => {
         document.getElementById("main_title").classList.add("hidden")
         document.getElementById("cr_title").classList.add("hidden")
         document.getElementById("fs_title").classList.add("hidden")
-        document.getElementById("ft_title").classList.add("hidden")
         document.getElementById("ctn_cr").classList.remove("hidden")
         document.getElementById("ctn_fs").classList.add("hidden")
         document.getElementById("ctn_github").classList.add("hidden")
@@ -136,7 +137,6 @@ document.getElementById("try_cr").addEventListener("click", event => {
     document.getElementById("main_title").classList.add("hidden")
     document.getElementById("cr_title").classList.add("hidden")
     document.getElementById("fs_title").classList.add("hidden")
-    document.getElementById("ft_title").classList.add("hidden")
     document.getElementById("ctn_cr").classList.remove("hidden")
     document.getElementById("ctn_fs").classList.add("hidden")
     document.getElementById("ctn_github").classList.add("hidden")
@@ -150,7 +150,6 @@ document.getElementsByName("menu_fs").forEach(element => {
         document.getElementById("main_title").classList.add("hidden")
         document.getElementById("cr_title").classList.add("hidden")
         document.getElementById("fs_title").classList.add("hidden")
-        document.getElementById("ft_title").classList.add("hidden")
         document.getElementById("ctn_cr").classList.add("hidden")
         document.getElementById("ctn_fs").classList.remove("hidden")
         document.getElementById("ctn_github").classList.add("hidden")
@@ -162,7 +161,6 @@ document.getElementById("try_fs").addEventListener("click", event => {
     document.getElementById("main_title").classList.add("hidden")
     document.getElementById("cr_title").classList.add("hidden")
     document.getElementById("fs_title").classList.add("hidden")
-    document.getElementById("ft_title").classList.add("hidden")
     document.getElementById("ctn_cr").classList.add("hidden")
     document.getElementById("ctn_fs").classList.remove("hidden")
     document.getElementById("ctn_github").classList.add("hidden")
@@ -176,7 +174,6 @@ document.getElementsByName("btn_git").forEach(element => {
         document.getElementById("main_title").classList.add("hidden")
         document.getElementById("cr_title").classList.add("hidden")
         document.getElementById("fs_title").classList.add("hidden")
-        document.getElementById("ft_title").classList.add("hidden")
         document.getElementById("ctn_cr").classList.add("hidden")
         document.getElementById("ctn_fs").classList.add("hidden")
         document.getElementById("ctn_github").classList.remove("hidden")

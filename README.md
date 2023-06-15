@@ -12,6 +12,14 @@ chatGPT가 노래의 가사를 분석하여 노래 제목을 찾아줍니다. �
 2. Youtube Data API
 3. tailwindcss
 4. svg
+#
+## Youtube Data API
+#### https://console.cloud.google.com/
+#### HTTP 리퍼러
+#### https://project-orumi.github.io
+
+## tailwindcss
+#### https://tailwindcss.com/
 
 ## SVG 코드 정리
 원의 좌표 (28, 16) 원의 반지름 2.8\

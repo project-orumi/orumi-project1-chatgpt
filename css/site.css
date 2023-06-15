@@ -10,16 +10,13 @@
     scrollbar-width: none; /* Firefox */
 }
 
-.header ul li.li-icon [class^="icon-"] {
+.header ul li.li-icon [class^="icon icon-"] {
     width: 1.4rem;
     height: 1.4rem;
-    background-position: center;
     background-size: 1.2rem 1.2rem;
-    background-repeat: no-repeat;
-    vertical-align: middle;
 }
 
-.header ul li.li-icon:hover [class^="icon-"] {
+.header ul li.li-icon:hover [class^="icon icon-"] {
     background-size: 1.4rem 1.4rem;
     fill: #7dd3fc;
 }

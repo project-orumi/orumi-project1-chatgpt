@@ -5,12 +5,19 @@ import { Loading } from "./loading.js"
 const url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`
 const $menu_cr = document.getElementsByName("menu_cr")
 const $menu_fs = document.getElementsByName("menu_fs")
+const $btn_git = document.getElementsByName("btn_git")
+const $btn_nav_menu = document.getElementById("btn_nav_menu")
+const $try_cr = document.getElementById("try_cr")
+const $try_fs = document.getElementById("try_fs")
 const $how_cr = document.getElementById('how_cr')
 const $how_fs = document.getElementById('how_fs')
 const $tta_code = document.getElementById("tta_code")
 const $tta_lyrics = document.getElementById("tta_lyrics")
 const $langs = document.getElementsByName("langs")
+const $btn_cr = document.getElementById("btn_cr")
+const $btn_fs = document.getElementById('btn_fs')
 const $btn_lang = document.getElementsByName("btn_lang")
+const $blacklayer = document.getElementById("blacklayer")
 const initial_language_val = $langs[0].getAttribute("value") // default language
 const initial_language_txt = $langs[0].getAttribute("value") // default language
 
@@ -26,7 +33,7 @@ $how_fs.innerText = lang.how_fs[initial_language_val]
 $tta_lyrics.value = sample.lyrics[initial_language_val]
 
 
-document.getElementById('btn_cr').addEventListener('click', e => {
+$btn_cr.addEventListener('click', e => {
     e.preventDefault()
     Loading.show()
     let code = $tta_code.value
@@ -66,7 +73,7 @@ document.getElementById('btn_cr').addEventListener('click', e => {
         })
 })
 
-document.getElementById('btn_fs').addEventListener('click', e => {
+$btn_fs.addEventListener('click', e => {
     e.preventDefault()
     document.getElementById("song").classList.add("hidden")
     document.getElementById('singer-title').innerText = ""
@@ -120,7 +127,7 @@ document.getElementById('btn_fs').addEventListener('click', e => {
 })
 
 // nav code review button click event
-document.getElementsByName("menu_cr").forEach(element => {
+$menu_cr.forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_sub_menu()
@@ -128,7 +135,7 @@ document.getElementsByName("menu_cr").forEach(element => {
         document.getElementById("ctn_cr").classList.remove("hidden")
     })
 })
-document.getElementById("try_cr").addEventListener("click", event => {
+$try_cr.addEventListener("click", event => {
     event.preventDefault()
     reset_sub_menu()
     hide_main()
@@ -136,7 +143,7 @@ document.getElementById("try_cr").addEventListener("click", event => {
 })
 
 // nav Title from Lyrics button click event
-document.getElementsByName("menu_fs").forEach(element => {
+$menu_fs.forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_sub_menu()
@@ -144,7 +151,7 @@ document.getElementsByName("menu_fs").forEach(element => {
         document.getElementById("ctn_fs").classList.remove("hidden")
     })
 })
-document.getElementById("try_fs").addEventListener("click", event => {
+$try_fs.addEventListener("click", event => {
     event.preventDefault()
     reset_sub_menu()
     hide_main()
@@ -152,7 +159,7 @@ document.getElementById("try_fs").addEventListener("click", event => {
 })
 
 // Github button click event
-document.getElementsByName("btn_git").forEach(element => {
+$btn_git.forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_sub_menu()
@@ -162,7 +169,7 @@ document.getElementsByName("btn_git").forEach(element => {
 })
 
 // (not lg screen) menu button click event
-document.getElementById("btn_nav_menu").addEventListener("click", event => {
+$btn_nav_menu.addEventListener("click", event => {
     event.preventDefault()
     reset_sub_menu()
     document.getElementById("sub_menu").classList.remove("hidden")
@@ -195,7 +202,7 @@ $langs.forEach(element => {
 })
 
 // blacklayer click event : hide the menu
-document.getElementById("blacklayer").addEventListener("click", event => {
+$blacklayer.addEventListener("click", event => {
     event.preventDefault()
     reset_sub_menu()
 })

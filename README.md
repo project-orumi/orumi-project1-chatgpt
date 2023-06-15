@@ -12,10 +12,10 @@ https://project-orumi.github.io/orumi-project1-chatgpt/
 3. tailwindcss
 4. svg
 #
-## Youtube Data API
+#### Youtube Data API
 #### https://console.cloud.google.com/
-#### HTTP 리퍼러
+#### Youtube Data API HTTP 리퍼러 제한
 #### https://project-orumi.github.io
 
-## tailwindcss
+#### tailwindcss
 #### https://tailwindcss.com/

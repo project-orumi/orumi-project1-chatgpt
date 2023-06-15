@@ -36,14 +36,14 @@ $tta_lyrics.value = sample.lyrics[initial_language_val]
 $btn_cr.addEventListener('click', e => {
     e.preventDefault()
     Loading.show()
-    let code = $tta_code.value
+    const code = $tta_code.value
     let data = [
         { "role": "system", "content": "The assistant is a code review expert." },
         { "role": "user", "content": "Please do a code review. Put the source code inside triple backticks." }
     ];
     data.push({
         "role": "user",
-        "content": "Please do code reviews in " + document.getElementsByName("btn_lang")[0].getAttribute("value") + "."
+        "content": `Please do code reviews in ${document.getElementsByName("btn_lang")[0].getAttribute("value")}.`
     })
     data.push({
         "role": "user",
@@ -79,7 +79,7 @@ $btn_fs.addEventListener('click', e => {
     document.getElementById('singer-title').innerText = ""
     document.getElementById('youtubes').innerHTML = ""
     Loading.show()
-    let lyrics = $tta_lyrics.value
+    const lyrics = $tta_lyrics.value
     let data = [
         { "role": "system", "content": "Assistant finds song titles by song lyrics." },
         { "role": "user", "content": 'Find the song title from lyrics. Additionally Let me know the song title and singer name or group name as a json object. {"song_title":"title", "singer_name":"name"}' }
@@ -98,15 +98,15 @@ $btn_fs.addEventListener('click', e => {
     })
         .then(response => response.json())
         .then(data => {
-            let str = data.choices[0].message.content
+            const str = data.choices[0].message.content
             const pattern1 = /{\s*"song_title"\s*:\s*".*",\s*"singer_name"\s*:\s*".*"\s*}/
             const pattern2 = /^.*title\s*is\s*"(.*)".*/
-            let found1 = str.match(pattern1)
-            let found2 = str.match(pattern2)
+            const found1 = str.match(pattern1)
+            const found2 = str.match(pattern2)
             if (found1 && found2) {
                 let found = JSON.parse(found1[0])
-                document.getElementById('singer-title').innerText = found["singer_name"] + " - " + found["song_title"]
-                const q = found["singer_name"] + " " + found["song_title"]
+                document.getElementById('singer-title').innerText = `${found["singer_name"]} - ${found["song_title"]}`
+                const q = `${found["singer_name"]} ${found["song_title"]}`
                 youtubeSearch(q)
                 document.getElementById('chatgpt-songtitle').innerText = found2[0]
             } else {
@@ -126,7 +126,7 @@ $btn_fs.addEventListener('click', e => {
         })
 })
 
-// nav code review button click event
+// Nav Code Review button click event
 $menu_cr.forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
@@ -142,7 +142,7 @@ $try_cr.addEventListener("click", event => {
     document.getElementById("ctn_cr").classList.remove("hidden")
 })
 
-// nav Title from Lyrics button click event
+// Nav Find Song button click event
 $menu_fs.forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
@@ -168,7 +168,7 @@ $btn_git.forEach(element => {
     })
 })
 
-// (not lg screen) menu button click event
+// menu button click event
 $btn_nav_menu.addEventListener("click", event => {
     event.preventDefault()
     reset_sub_menu()
@@ -176,7 +176,7 @@ $btn_nav_menu.addEventListener("click", event => {
     document.getElementById("banner_menu").classList.remove("hidden")
 })
 
-// nav language button click event
+// Nav language button click event
 $btn_lang.forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
@@ -186,7 +186,7 @@ $btn_lang.forEach(element => {
     })
 })
 
-// language click event : set a language
+// langs button click event : set a language
 $langs.forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
@@ -210,19 +210,19 @@ $blacklayer.addEventListener("click", event => {
 // textarea highlighting : focus
 Array.from(document.getElementsByClassName("tta")).forEach(element => {
     element.addEventListener("focus", event => {
-        element.parentNode.parentNode.classList.add("ring-2")
+        element.parentNode.parentNode.classList.add("ring-4")
     })
 })
 
 // textarea highlighting : blur
 Array.from(document.getElementsByClassName("tta")).forEach(element => {
     element.addEventListener("blur", event => {
-        element.parentNode.parentNode.classList.remove("ring-2")
+        element.parentNode.parentNode.classList.remove("ring-4")
     })
 })
 
 /**
- * (not lg screen) hide a banner menu and language menu
+ * hide a banner menu and language menu
  */
 function reset_sub_menu() {
     document.getElementById("sub_menu").classList.add("hidden")
@@ -253,7 +253,8 @@ function youtubeSearch(q) {
         .then(data => {
             document.getElementById("song").classList.remove("hidden")
             data.items.forEach(d => {
-                document.getElementById('youtubes').innerHTML += '<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + d.id.videoId + '" frameborder="0"></iframe>'
+                const videoId = d.id.videoId
+                document.getElementById('youtubes').innerHTML += `<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/${videoId}" frameborder="0"></iframe>`
             })
         }).catch(r => {
 

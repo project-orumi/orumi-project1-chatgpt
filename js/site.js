@@ -123,23 +123,15 @@ document.getElementsByName("menu_cr").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_sub_menu()
-        document.getElementById("main_title").classList.add("hidden")
-        document.getElementById("cr_title").classList.add("hidden")
-        document.getElementById("fs_title").classList.add("hidden")
+        hide_main()
         document.getElementById("ctn_cr").classList.remove("hidden")
-        document.getElementById("ctn_fs").classList.add("hidden")
-        document.getElementById("ctn_github").classList.add("hidden")
     })
 })
 document.getElementById("try_cr").addEventListener("click", event => {
     event.preventDefault()
     reset_sub_menu()
-    document.getElementById("main_title").classList.add("hidden")
-    document.getElementById("cr_title").classList.add("hidden")
-    document.getElementById("fs_title").classList.add("hidden")
+    hide_main()
     document.getElementById("ctn_cr").classList.remove("hidden")
-    document.getElementById("ctn_fs").classList.add("hidden")
-    document.getElementById("ctn_github").classList.add("hidden")
 })
 
 // banner Title from Lyrics button click event
@@ -147,23 +139,15 @@ document.getElementsByName("menu_fs").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_sub_menu()
-        document.getElementById("main_title").classList.add("hidden")
-        document.getElementById("cr_title").classList.add("hidden")
-        document.getElementById("fs_title").classList.add("hidden")
-        document.getElementById("ctn_cr").classList.add("hidden")
+        hide_main()
         document.getElementById("ctn_fs").classList.remove("hidden")
-        document.getElementById("ctn_github").classList.add("hidden")
     })
 })
 document.getElementById("try_fs").addEventListener("click", event => {
     event.preventDefault()
     reset_sub_menu()
-    document.getElementById("main_title").classList.add("hidden")
-    document.getElementById("cr_title").classList.add("hidden")
-    document.getElementById("fs_title").classList.add("hidden")
-    document.getElementById("ctn_cr").classList.add("hidden")
+    hide_main()
     document.getElementById("ctn_fs").classList.remove("hidden")
-    document.getElementById("ctn_github").classList.add("hidden")
 })
 
 // Github button click event
@@ -171,11 +155,7 @@ document.getElementsByName("btn_git").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_sub_menu()
-        document.getElementById("main_title").classList.add("hidden")
-        document.getElementById("cr_title").classList.add("hidden")
-        document.getElementById("fs_title").classList.add("hidden")
-        document.getElementById("ctn_cr").classList.add("hidden")
-        document.getElementById("ctn_fs").classList.add("hidden")
+        hide_main()
         document.getElementById("ctn_github").classList.remove("hidden")
     })
 })
@@ -240,6 +220,18 @@ function reset_sub_menu() {
     document.getElementById("sub_menu").classList.add("hidden")
     document.getElementById("banner_menu").classList.add("hidden")
     document.getElementById("banner_language").classList.add("hidden")
+}
+
+/**
+ * hide main contents
+ */
+function hide_main() {
+    document.getElementById("main_title").classList.add("hidden")
+    document.getElementById("cr_title").classList.add("hidden")
+    document.getElementById("fs_title").classList.add("hidden")
+    document.getElementById("ctn_cr").classList.add("hidden")
+    document.getElementById("ctn_fs").classList.add("hidden")
+    document.getElementById("ctn_github").classList.add("hidden")
 }
 
 /**

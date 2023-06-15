@@ -9,20 +9,21 @@ const $how_cr = document.getElementById('how_cr')
 const $how_fs = document.getElementById('how_fs')
 const $tta_code = document.getElementById("tta_code")
 const $tta_lyrics = document.getElementById("tta_lyrics")
-const $language = document.getElementsByName("language")
+const $langs = document.getElementsByName("langs")
 const $btn_lang = document.getElementsByName("btn_lang")
-const initial_language = $language[3].getAttribute("value") // default language
+const initial_language_val = $langs[0].getAttribute("value") // default language
+const initial_language_txt = $langs[0].getAttribute("value") // default language
 
 // initialize sample code
 $tta_code.value = sample.code
 
 // initialize default language
-$btn_lang.forEach(e => { e.setAttribute("value", initial_language); e.children[1].innerText = $language[3].innerText; })
-$menu_cr.forEach(e => { e.innerText = lang.menu.menu1[initial_language] })
-$menu_fs.forEach(e => { e.innerText = lang.menu.menu2[initial_language] })
-$how_cr.innerText = lang.how_cr[initial_language]
-$how_fs.innerText = lang.how_fs[initial_language]
-$tta_lyrics.value = sample.lyrics[initial_language]
+$btn_lang.forEach(e => { e.setAttribute("value", initial_language_val); e.children[1].innerText = initial_language_txt; })
+$menu_cr.forEach(e => { e.innerText = lang.menu.menu1[initial_language_val] })
+$menu_fs.forEach(e => { e.innerText = lang.menu.menu2[initial_language_val] })
+$how_cr.innerText = lang.how_cr[initial_language_val]
+$how_fs.innerText = lang.how_fs[initial_language_val]
+$tta_lyrics.value = sample.lyrics[initial_language_val]
 
 
 document.getElementById('btn_cr').addEventListener('click', e => {
@@ -118,7 +119,7 @@ document.getElementById('btn_fs').addEventListener('click', e => {
         })
 })
 
-// banner code review button click event
+// nav code review button click event
 document.getElementsByName("menu_cr").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
@@ -134,7 +135,7 @@ document.getElementById("try_cr").addEventListener("click", event => {
     document.getElementById("ctn_cr").classList.remove("hidden")
 })
 
-// banner Title from Lyrics button click event
+// nav Title from Lyrics button click event
 document.getElementsByName("menu_fs").forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
@@ -161,15 +162,15 @@ document.getElementsByName("btn_git").forEach(element => {
 })
 
 // (not lg screen) menu button click event
-document.getElementById("btn_banner_menu").addEventListener("click", event => {
+document.getElementById("btn_nav_menu").addEventListener("click", event => {
     event.preventDefault()
     reset_sub_menu()
     document.getElementById("sub_menu").classList.remove("hidden")
     document.getElementById("banner_menu").classList.remove("hidden")
 })
 
-// banner language button click event
-document.getElementsByName("btn_lang").forEach(element => {
+// nav language button click event
+$btn_lang.forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_sub_menu()
@@ -179,7 +180,7 @@ document.getElementsByName("btn_lang").forEach(element => {
 })
 
 // language click event : set a language
-document.getElementsByName("language").forEach(element => {
+$langs.forEach(element => {
     element.addEventListener("click", event => {
         event.preventDefault()
         reset_sub_menu()

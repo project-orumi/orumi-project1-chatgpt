@@ -36,31 +36,29 @@
 }
 
 .icon-chatgpt-logo {
-    background: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg') no-repeat center;
+    background-image: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg');
     width: 2.0rem;
     height: 2.0rem;
     background-size: 2.0rem 2.0rem;
-    vertical-align: middle;
 }
 
 .icon-chatgpt-logo-white {
-    background: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg') no-repeat center;
+    background-image: url('/orumi-project1-chatgpt/assets/icons/ChatGPT.svg');
     width: 2.0rem;
     height: 2.0rem;
     background-size: 2.0rem 2.0rem;
-    vertical-align: middle;
     filter: brightness(100%) contrast(100%) hue-rotate(0deg) invert(100%) saturate(100%) sepia(0%);
 }
 
 .icon-youtube-logo {
-    background: url('/orumi-project1-chatgpt/assets/icons/logo-youtube.svg') no-repeat center;
+    background-image: url('/orumi-project1-chatgpt/assets/icons/logo-youtube.svg');
     width: 2.0rem;
     height: 2.0rem;
     background-size: 2.0rem 2.0rem;
 }
 
-.banner {
-    background: url('/orumi-project1-chatgpt/assets/icons/banner.svg') no-repeat center;
+.icon-banner {
+    background-image: url('/orumi-project1-chatgpt/assets/icons/banner.svg');
     width: 2.0rem;
     height: 2.0rem;
     background-size: 1.5rem 1.5rem;
